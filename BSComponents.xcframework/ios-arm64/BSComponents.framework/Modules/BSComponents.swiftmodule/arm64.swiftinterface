@@ -1,0 +1,691 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 5.4.2 (swiftlang-1205.0.28.2 clang-1205.0.19.57)
+// swift-module-flags: -target arm64-apple-ios12.0 -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name BSComponents
+@_exported import BSComponents
+import CoreData
+import Foundation
+import Swift
+import UIKit
+extension Array : BSComponents.BSDataProviderPlain {
+  public var elementsCount: Swift.Int {
+    get
+  }
+  public func elementModel(at index: Swift.Int) -> Any?
+}
+public protocol BSCollectionViewCellConfigurationInterface : AnyObject {
+  var cellDelegate: BSComponents.BSCollectionViewCellConfigurationDelegate? { get set }
+  var cellResizeDelegate: BSComponents.BSCollectionViewCellSizeChangeDelegate? { get set }
+  func dequeueCollectionViewCellUnified(from collectionView: UIKit.UICollectionView, for indexPath: Foundation.IndexPath) -> UIKit.UICollectionViewCell
+  func configureCellUnified(cell: UIKit.UICollectionViewCell, context: Any?)
+}
+public protocol BSCollectionViewCellConfiguration : BSComponents.BSCollectionViewCellConfigurationInterface {
+  associatedtype CellClass : UIKit.UICollectionViewCell
+  var cellReference: Self.CellClass? { get set }
+  func configureCell(cell: Self.CellClass, context: Any?)
+}
+extension BSCollectionViewCellConfiguration {
+  public func dequeueCollectionViewCellUnified(from collectionView: UIKit.UICollectionView, for indexPath: Foundation.IndexPath) -> UIKit.UICollectionViewCell
+  public func configureCellUnified(cell: UIKit.UICollectionViewCell, context: Any?)
+  public func configureCell(cell: Self.CellClass)
+}
+public protocol BSCollectionViewCellConfigurationDelegate : AnyObject {
+}
+public protocol BSCollectionViewCellSizeChangeDelegate : AnyObject {
+  func collectionContentHeightDidChange()
+}
+public protocol BSCollectionViewCellConfigurationMovable : BSComponents.BSCollectionViewCellConfigurationInterface {
+  var canMoveItem: Swift.Bool { get }
+}
+@available(iOS 13.0, *)
+public protocol BSCollectionViewCellConfigurationForceTouchable : BSComponents.BSCollectionViewCellConfigurationInterface {
+  func contextMenuConfiguration(atPoint: CoreGraphics.CGPoint) -> UIKit.UIContextMenuConfiguration?
+}
+@objc extension NSFetchedResultsController : BSComponents.BSDataProviderSectioned {
+  @objc dynamic public var sectionsCount: Swift.Int {
+    @objc get
+  }
+  @objc dynamic public func sectionModel(section: Swift.Int) -> Any?
+  @objc dynamic public func elementsCount(in section: Swift.Int) -> Swift.Int
+  @objc dynamic public func elementModel(at indexPath: Foundation.IndexPath) -> Any?
+}
+@objc public protocol PagingableViewProtocol : ObjectiveC.NSObjectProtocol {
+  @objc func setClass(_ elementClass: UIKit.UIView.Type, forConfigureElement block: @escaping (Swift.Int, UIKit.UIView) -> Swift.Void)
+  @objc func view(atIndex index: Swift.Int) -> UIKit.UIView?
+  @objc func reloadElements()
+  @objc var selectedIndexOffsetChangeBlock: ((CoreGraphics.CGFloat, Swift.Bool) -> Swift.Void)? { get set }
+  @objc var selectedIndexChangeBlock: ((Swift.Int, Swift.Bool) -> Swift.Void)? { get set }
+  @objc var transitionEndBlock: ((Swift.Bool) -> Swift.Void)? { get set }
+  @objc var transitionStartBlock: ((Swift.Bool) -> Swift.Void)? { get set }
+  @objc var mSelectedIndex: Swift.Int { get }
+  @objc func setSelectionIndex(index: Swift.Int)
+  @objc var mNumberOfPages: Swift.Int { get set }
+}
+public protocol BSPagerItemConfigurationDelegate : AnyObject {
+}
+public protocol BSPagerDataSourceDelegate : BSComponents.BSPagerItemConfigurationDelegate {
+  func pagerDidChangeSelectedIndex(newIndex: Swift.Int, isBigger: Swift.Bool)
+  func pagerDidChangeSelectedIndexOffset(newOffset: CoreGraphics.CGFloat, isBigger: Swift.Bool)
+  func pagerDidStartTransition(isBigger: Swift.Bool)
+  func pagerDidEndTransition(isBigger: Swift.Bool)
+}
+public protocol BSPagerItemConfigurationInterface : AnyObject {
+  var itemDelegate: BSComponents.BSPagerItemConfigurationDelegate? { get set }
+  func dequeueItemViewUnified() -> UIKit.UIView?
+  func configureItemUnified(item: UIKit.UIView, context: Any?)
+}
+public protocol BSPagerItemConfiguration : BSComponents.BSPagerItemConfigurationInterface {
+  associatedtype ItemClass : UIKit.UIView
+  var itemReference: Self.ItemClass? { get set }
+  func configureItem(item view: Self.ItemClass, context: Any?)
+}
+extension BSPagerItemConfiguration {
+  public func configureItem(item: Self.ItemClass)
+  public func configureItemUnified(item: UIKit.UIView, context: Any?)
+  public func dequeueItemViewUnified() -> UIKit.UIView?
+}
+public protocol BSPageViewControllerConfigurationInterface : AnyObject, BSComponents.StringIdentifiable {
+  func fabricateControllerUnified() -> UIKit.UIViewController?
+  func configureControllerUnified(controller: UIKit.UIViewController, context: Any?)
+}
+public protocol BSPageViewControllerConfiguration : BSComponents.BSPageViewControllerConfigurationInterface {
+  associatedtype ControllerClass : BSComponents.BSPaginableViewController
+  func fabricateController() -> Self.ControllerClass?
+  func configureController(controller: Self.ControllerClass, context: Any?)
+}
+extension BSPageViewControllerConfiguration {
+  public func fabricateControllerUnified() -> UIKit.UIViewController?
+  public func configureControllerUnified(controller: UIKit.UIViewController, context: Any?)
+}
+public protocol BSPaginableViewController : UIKit.UIViewController, BSComponents.StringIdentifiable {
+}
+public protocol StringIdentifiable {
+  var id: Swift.String { get }
+}
+public protocol BSPickerViewDataSourceInterface {
+  var delegate: BSComponents.BSPickerDataSourceDelegate? { get set }
+  var dataProvider: BSComponents.BSDataProviderSectioned? { get set }
+  func setData(provider: BSComponents.BSDataProviderSectioned?)
+  func link(to picker: UIKit.UIPickerView)
+}
+public protocol BSPickerDataSourceDelegate : AnyObject {
+  func dataSourceDidSelect(dataSource: BSComponents.BSPickerViewDataSource, model: BSComponents.BSViewConfigurationInterface)
+  func dataSourceRequstsToUpdatePicker(dataSource: BSComponents.BSPickerViewDataSource)
+}
+public protocol BSCollectionViewDataSourceDelegate : BSComponents.BSCollectionViewCellConfigurationDelegate {
+  func didSelect(dataSource: BSComponents.BSCollectionViewDataSource, model: BSComponents.BSCollectionViewCellConfigurationInterface, in section: BSComponents.BSCollectionViewSectionConfigurationInterface?, indexPath: Foundation.IndexPath)
+  func dataSourceRequstsToUpdateCollection(dataSource: BSComponents.BSCollectionViewDataSource)
+}
+public protocol BSCollectionViewDataSourceDelegateMovable : BSComponents.BSCollectionViewDataSourceDelegate {
+  func itemIsMoved(configuration: BSComponents.BSCollectionViewCellConfigurationMovable, from: Foundation.IndexPath, to: Foundation.IndexPath)
+  func desiredIndexPathToMoveTo(configuration: BSComponents.BSCollectionViewCellConfigurationMovable, from: Foundation.IndexPath, toUserChosenIndexPath: Foundation.IndexPath) -> Foundation.IndexPath
+}
+@available(iOS 13.0, *)
+public protocol BSCollectionDataSourceOutputProtocolForceTouchable : BSComponents.BSCollectionViewDataSourceDelegate {
+  func willPerformForceTouchActionWith(forceTouchConfiguration: UIKit.UIContextMenuConfiguration, animator: UIKit.UIContextMenuInteractionCommitAnimating)
+}
+@objc @_inheritsConvenienceInitializers open class BSCollectionViewDataSource : ObjectiveC.NSObject, UIKit.UICollectionViewDelegate, UIKit.UICollectionViewDataSource, BSComponents.BSCollectionViewCellSizeChangeDelegate {
+  weak open var delegate: BSComponents.BSCollectionViewDataSourceDelegate?
+  open var dataProvider: BSComponents.BSDataProviderSectioned?
+  open var generatesStateInfo: Swift.Bool
+  open func setData(data: BSComponents.BSDataProviderSectioned)
+  @objc open func numberOfSections(in collectionView: UIKit.UICollectionView) -> Swift.Int
+  @objc open func collectionView(_ collectionView: UIKit.UICollectionView, numberOfItemsInSection section: Swift.Int) -> Swift.Int
+  @objc open func collectionView(_ collectionView: UIKit.UICollectionView, cellForItemAt indexPath: Foundation.IndexPath) -> UIKit.UICollectionViewCell
+  @objc open func collectionView(_ collectionView: UIKit.UICollectionView, didSelectItemAt indexPath: Foundation.IndexPath)
+  @objc open func collectionView(_ collectionView: UIKit.UICollectionView, viewForSupplementaryElementOfKind kind: Swift.String, at indexPath: Foundation.IndexPath) -> UIKit.UICollectionReusableView
+  @objc public func collectionContentHeightDidChange()
+  @objc open func scrollViewDidScroll(_ scrollView: UIKit.UIScrollView)
+  @objc open func collectionView(_ collectionView: UIKit.UICollectionView, canMoveItemAt indexPath: Foundation.IndexPath) -> Swift.Bool
+  @objc open func collectionView(_ collectionView: UIKit.UICollectionView, moveItemAt sourceIndexPath: Foundation.IndexPath, to destinationIndexPath: Foundation.IndexPath)
+  @objc open func collectionView(_ collectionView: UIKit.UICollectionView, targetIndexPathForMoveFromItemAt originalIndexPath: Foundation.IndexPath, toProposedIndexPath proposedIndexPath: Foundation.IndexPath) -> Foundation.IndexPath
+  @available(iOS 13.0, *)
+  @objc public func collectionView(_ collectionView: UIKit.UICollectionView, contextMenuConfigurationForItemAt indexPath: Foundation.IndexPath, point: CoreGraphics.CGPoint) -> UIKit.UIContextMenuConfiguration?
+  @available(iOS 13.0, *)
+  @objc public func collectionView(_ collectionView: UIKit.UICollectionView, willPerformPreviewActionForMenuWith configuration: UIKit.UIContextMenuConfiguration, animator: UIKit.UIContextMenuInteractionCommitAnimating)
+  @objc override dynamic public init()
+  @objc deinit
+}
+extension BSCollectionViewDataSource : BSComponents.BSDataProviderDelegate {
+  open func dataProviderChangedData()
+}
+public struct BSCollectionCellConfigurationUserInfoKey {
+  public static var isFirstElementInSection: Swift.String {
+    get
+  }
+  public static var isLastElementInSection: Swift.String {
+    get
+  }
+  public static var isInFirstSection: Swift.String {
+    get
+  }
+  public static var isInLastSection: Swift.String {
+    get
+  }
+  public static var isHeaderEnbledForThisSection: Swift.String {
+    get
+  }
+  public static var isFooterEnbledForThisSection: Swift.String {
+    get
+  }
+  public static var isNextSectionHeaderEnabled: Swift.String {
+    get
+  }
+  public static var isNextSectionFooterEnabled: Swift.String {
+    get
+  }
+  public static var isPrevSectionHeaderEnabled: Swift.String {
+    get
+  }
+  public static var isPrevSectionFooterEnabled: Swift.String {
+    get
+  }
+}
+extension UICollectionView {
+  public static var associatedKey: Foundation.NSString
+  public var setOfRegisteredClasses: Foundation.NSMutableSet {
+    get
+  }
+  public func dequeueReusableCell<T>(withClass mClass: T.Type, for indexPath: Foundation.IndexPath) -> T where T : UIKit.UICollectionViewCell
+  public func dequeueReusableSupplementaryView<T>(withClass mClass: T.Type, ofKind kind: Swift.String, for indexPath: Foundation.IndexPath) -> T? where T : UIKit.UICollectionReusableView
+}
+public protocol BSCollectionViewSectionConfigurationInterface : AnyObject {
+  var collectionCellDelegate: BSComponents.BSCollectionViewCellConfigurationDelegate? { get set }
+  var showsHeader: Swift.Bool { get }
+  var showsFooter: Swift.Bool { get }
+  func dequeueHeaderUnified(from collectionView: UIKit.UICollectionView, for index: Swift.Int) -> UIKit.UICollectionReusableView?
+  func dequeueFooterUnified(from collectionView: UIKit.UICollectionView, for index: Swift.Int) -> UIKit.UICollectionReusableView?
+  func configureHeaderUnified(header view: UIKit.UICollectionReusableView, context: Any?)
+  func configureFooterUnified(footer view: UIKit.UICollectionReusableView, context: Any?)
+}
+public protocol BSCollectionViewSectionConfiguration : BSComponents.BSCollectionViewSectionConfigurationInterface {
+  associatedtype HeaderViewClass : UIKit.UICollectionReusableView
+  associatedtype FooterViewClass : UIKit.UICollectionReusableView
+  var headerReference: Self.HeaderViewClass { get set }
+  var footerReference: Self.FooterViewClass { get set }
+  func configureHeader(header view: Self.HeaderViewClass, context: Any?)
+  func configureFooter(footer view: Self.FooterViewClass, context: Any?)
+}
+public class BSDataProviderSectionedBlockConfigurationDecorator : BSComponents.BSDataProviderSectionedWithDelegate, BSComponents.BSDataProviderSectionedExtendedDelegate {
+  weak public var delegate: BSComponents.BSDataProviderDelegate?
+  public var isInformingDatasourceAboutChanges: Swift.Bool
+  public var originalProvider: BSComponents.BSDataProviderSectioned {
+    get
+    set
+  }
+  public init(provider: BSComponents.BSDataProviderSectioned, itemConfigurationBlock: ((Any?) -> Any?)? = nil, sectionConfigurationBlock: ((Any?) -> Any?)? = nil)
+  public var itemConfigurationBlock: ((Any?) -> Any?)?
+  public var sectionConfigurationBlock: ((Any?) -> Any?)?
+  public var sectionsCount: Swift.Int {
+    get
+  }
+  public func elementsCount(in section: Swift.Int) -> Swift.Int
+  public func sectionModel(section: Swift.Int) -> Any?
+  public func elementModel(at indexPath: Foundation.IndexPath) -> Any?
+  public func dataProviderChangedData()
+  public func dataProviderBeginsBatchUpdate() -> Swift.Bool
+  public func dataProviderEndsBatchUpdate()
+  public func dataProviderChangedSection(section: Swift.Int)
+  public func dataProviderRemovedSection(section: Swift.Int)
+  public func dataProviderInsertedSection(section: Swift.Int)
+  public func dataProviderMovedSection(from: Swift.Int, to: Swift.Int)
+  public func dataProviderChangedRow(at: Foundation.IndexPath)
+  public func dataProviderInsertedRow(at: Foundation.IndexPath)
+  public func dataProviderRemovedRow(at: Foundation.IndexPath)
+  public func dataProviderMovedRow(from: Foundation.IndexPath, to: Foundation.IndexPath)
+  @objc deinit
+}
+public class BSDataProviderSectionedInsertSectionDecorator : BSComponents.BSDataProviderSectioned, BSComponents.BSDataProviderSectionedExtendedDelegate, BSComponents.BSDataProviderSectionedWithDelegate {
+  public var isInformingDatasourceAboutChanges: Swift.Bool
+  weak public var delegate: BSComponents.BSDataProviderDelegate?
+  public var originalProvider: BSComponents.BSDataProviderSectioned {
+    get
+    set
+  }
+  public var insertionProvider: BSComponents.BSDataProviderSectioned? {
+    get
+    set
+  }
+  public var insertionSectionIndex: Swift.Int {
+    get
+    set
+  }
+  public init(originalProvider: BSComponents.BSDataProviderSectioned, insertionProvider: BSComponents.BSDataProviderSectioned?, insertionSectionIndex: Swift.Int)
+  public func dataProviderChangedData()
+  public var sectionsCount: Swift.Int {
+    get
+  }
+  public func elementsCount(in section: Swift.Int) -> Swift.Int
+  public func sectionModel(section: Swift.Int) -> Any?
+  public func elementModel(at indexPath: Foundation.IndexPath) -> Any?
+  public func dataProviderBeginsBatchUpdate() -> Swift.Bool
+  public func dataProviderEndsBatchUpdate()
+  public func dataProviderChangedSection(section: Swift.Int)
+  public func dataProviderRemovedSection(section: Swift.Int)
+  public func dataProviderInsertedSection(section: Swift.Int)
+  public func dataProviderMovedSection(from: Swift.Int, to: Swift.Int)
+  public func dataProviderChangedRow(at: Foundation.IndexPath)
+  public func dataProviderInsertedRow(at: Foundation.IndexPath)
+  public func dataProviderRemovedRow(at: Foundation.IndexPath)
+  public func dataProviderMovedRow(from: Foundation.IndexPath, to: Foundation.IndexPath)
+  @objc deinit
+}
+open class BSDataProviderSectionedCacheDecorator : BSComponents.BSDataProviderSectionedWithDelegate, BSComponents.BSDataProviderSectionedExtendedDelegate {
+  weak public var delegate: BSComponents.BSDataProviderDelegate?
+  final public let agressive: Swift.Bool
+  public var originalProvider: BSComponents.BSDataProviderSectioned {
+    get
+    set
+  }
+  public init(provider: BSComponents.BSDataProviderSectioned, agressive: Swift.Bool = true)
+  public var sectionsCache: [Swift.Int : Any]
+  public var cellsCache: [Foundation.IndexPath : Any]
+  public var sectionsCount: Swift.Int {
+    get
+  }
+  public func elementsCount(in section: Swift.Int) -> Swift.Int
+  public func sectionModel(section: Swift.Int) -> Any?
+  public func elementModel(at indexPath: Foundation.IndexPath) -> Any?
+  public func dataProviderChangedData()
+  public func dataProviderBeginsBatchUpdate() -> Swift.Bool
+  public func dataProviderEndsBatchUpdate()
+  public func dataProviderChangedSection(section: Swift.Int)
+  public func dataProviderRemovedSection(section: Swift.Int)
+  public func dataProviderInsertedSection(section: Swift.Int)
+  public func dataProviderMovedSection(from: Swift.Int, to: Swift.Int)
+  public func dataProviderChangedRow(at: Foundation.IndexPath)
+  public func dataProviderInsertedRow(at: Foundation.IndexPath)
+  public func dataProviderRemovedRow(at: Foundation.IndexPath)
+  public func dataProviderMovedRow(from: Foundation.IndexPath, to: Foundation.IndexPath)
+  @objc deinit
+}
+public class BSDataProviderSectionedInsertItemDecorator : BSComponents.BSDataProviderSectioned, BSComponents.BSDataProviderSectionedExtendedDelegate, BSComponents.BSDataProviderSectionedWithDelegate {
+  public var isInformingDatasourceAboutChanges: Swift.Bool
+  weak public var delegate: BSComponents.BSDataProviderDelegate?
+  public var originalProvider: BSComponents.BSDataProviderSectioned {
+    get
+    set
+  }
+  public var insertionItemInfo: (index: Foundation.IndexPath, item: Any?)? {
+    get
+    set
+  }
+  public init(originalProvider: BSComponents.BSDataProviderSectioned, insertionInfo: (index: Foundation.IndexPath, item: Any?)?)
+  public func dataProviderChangedData()
+  public var sectionsCount: Swift.Int {
+    get
+  }
+  public func elementsCount(in section: Swift.Int) -> Swift.Int
+  public func sectionModel(section: Swift.Int) -> Any?
+  public func elementModel(at indexPath: Foundation.IndexPath) -> Any?
+  public func dataProviderBeginsBatchUpdate() -> Swift.Bool
+  public func dataProviderEndsBatchUpdate()
+  public func dataProviderChangedSection(section: Swift.Int)
+  public func dataProviderRemovedSection(section: Swift.Int)
+  public func dataProviderInsertedSection(section: Swift.Int)
+  public func dataProviderMovedSection(from: Swift.Int, to: Swift.Int)
+  public func dataProviderChangedRow(at: Foundation.IndexPath)
+  public func dataProviderInsertedRow(at: Foundation.IndexPath)
+  public func dataProviderRemovedRow(at: Foundation.IndexPath)
+  public func dataProviderMovedRow(from: Foundation.IndexPath, to: Foundation.IndexPath)
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers open class BSPagerViewDataSource : ObjectiveC.NSObject, BSComponents.BSDataProviderDelegate {
+  weak open var delegate: BSComponents.BSPagerDataSourceDelegate?
+  open var dataProvider: BSComponents.BSDataProviderPlain?
+  weak open var pagerView: BSComponents.PagingableViewProtocol?
+  open func loadData(dataProvider: BSComponents.BSDataProviderPlain?)
+  open func dataProviderChangedData()
+  open func link(to: BSComponents.PagingableViewProtocol)
+  open func setUpBlockHandlersIfNeeded()
+  open func setUpBlockHandlers()
+  open func setClassIfNeeded()
+  open func setClass(fromExampleElement: BSComponents.BSPagerItemConfigurationInterface)
+  open func didChangeSelectedIndex(newIndex: Swift.Int, isGrow: Swift.Bool)
+  open func didChangeSelectedIndexOffset(offset: CoreGraphics.CGFloat, isGrow: Swift.Bool)
+  open func didStartTransition(isGrow: Swift.Bool)
+  open func didEndTransition(isGrow: Swift.Bool)
+  open func configureElement(atIndex: Swift.Int, element: UIKit.UIView)
+  open func updateNumberOfItems()
+  open func setSelectionIndex(newIndex: Swift.Int)
+  open func setNumberOfItems(newNumber: Swift.Int)
+  open func numberOfObjects() -> Swift.Int
+  @objc override dynamic public init()
+  @objc deinit
+}
+public protocol BSPageViewControllerDataSourceInputProtocol : BSComponents.BSDataProviderDelegate, UIKit.UIPageViewControllerDataSource, UIKit.UIPageViewControllerDelegate {
+  var dataProvider: BSComponents.BSDataProviderPlainIndexable? { get set }
+  func setData(dataProvider: BSComponents.BSDataProviderPlainIndexable?, selectedIndex: Swift.Int)
+  func link(to controller: UIKit.UIPageViewController)
+  var delegate: BSComponents.BSPageViewControllerDataSourceDelegate? { get set }
+}
+public protocol BSPageViewControllerDataSourceDelegate : AnyObject {
+  func didSelect(pageViewControllerConfig config: BSComponents.BSPageViewControllerConfigurationInterface, controller: BSComponents.BSPaginableViewController)
+}
+@objc @_inheritsConvenienceInitializers open class BSPageViewControllerDataSource : ObjectiveC.NSObject, BSComponents.BSPageViewControllerDataSourceInputProtocol {
+  open var dataProvider: BSComponents.BSDataProviderPlainIndexable?
+  weak open var pageViewController: UIKit.UIPageViewController?
+  weak open var delegate: BSComponents.BSPageViewControllerDataSourceDelegate?
+  open func setData(dataProvider: BSComponents.BSDataProviderPlainIndexable?, selectedIndex: Swift.Int = 0)
+  open func link(to controller: UIKit.UIPageViewController)
+  @objc open func pageViewController(_ pageViewController: UIKit.UIPageViewController, viewControllerBefore viewController: UIKit.UIViewController) -> UIKit.UIViewController?
+  @objc open func pageViewController(_ pageViewController: UIKit.UIPageViewController, viewControllerAfter viewController: UIKit.UIViewController) -> UIKit.UIViewController?
+  @objc open func pageViewController(_ pageViewController: UIKit.UIPageViewController, willTransitionTo pendingViewControllers: [UIKit.UIViewController])
+  open var selectedIndex: Swift.Int {
+    get
+  }
+  @objc open func pageViewController(_ pageViewController: UIKit.UIPageViewController, didFinishAnimating finished: Swift.Bool, previousViewControllers: [UIKit.UIViewController], transitionCompleted completed: Swift.Bool)
+  public func dataProviderChangedData()
+  @objc override dynamic public init()
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers open class BSPageViewControllerDataSourceWithIndex : BSComponents.BSPageViewControllerDataSource {
+  @objc open func presentationCount(for pageViewController: UIKit.UIPageViewController) -> Swift.Int
+  @objc open func presentationIndex(for pageViewController: UIKit.UIPageViewController) -> Swift.Int
+  @objc override dynamic public init()
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers open class BSPickerViewDataSource : ObjectiveC.NSObject, BSComponents.BSPickerViewDataSourceInterface, UIKit.UIPickerViewDataSource, UIKit.UIPickerViewDelegate, BSComponents.BSDataProviderDelegate {
+  open var dataProvider: BSComponents.BSDataProviderSectioned?
+  weak open var delegate: BSComponents.BSPickerDataSourceDelegate?
+  weak open var pickerView: UIKit.UIPickerView?
+  open func link(to picker: UIKit.UIPickerView)
+  open func setData(provider: BSComponents.BSDataProviderSectioned?)
+  open func setSelected(row: Swift.Int, component: Swift.Int, animated: Swift.Bool)
+  @objc open func numberOfComponents(in pickerView: UIKit.UIPickerView) -> Swift.Int
+  @objc open func pickerView(_ pickerView: UIKit.UIPickerView, didSelectRow row: Swift.Int, inComponent component: Swift.Int)
+  @objc open func pickerView(_ pickerView: UIKit.UIPickerView, numberOfRowsInComponent component: Swift.Int) -> Swift.Int
+  @objc open func pickerView(_ pickerView: UIKit.UIPickerView, viewForRow row: Swift.Int, forComponent component: Swift.Int, reusing view: UIKit.UIView?) -> UIKit.UIView
+  open func dataProviderChangedData()
+  @objc override dynamic public init()
+  @objc deinit
+}
+public protocol BSDataProviderPlain : BSComponents.BSDataProviderSectioned {
+  var elementsCount: Swift.Int { get }
+  func elementModel(at index: Swift.Int) -> Any?
+}
+extension BSDataProviderPlain {
+  public var sectionsCount: Swift.Int {
+    get
+  }
+  public func elementsCount(in section: Swift.Int) -> Swift.Int
+  public func sectionModel(section: Swift.Int) -> Any?
+  public func elementModel(at indexPath: Foundation.IndexPath) -> Any?
+}
+public protocol BSDataProviderPlainWithDelegate : BSComponents.BSDataProviderPlain {
+  var delegate: BSComponents.BSDataProviderDelegate? { get set }
+}
+public protocol BSDataProviderPlainIndexable : BSComponents.BSDataProviderPlain {
+  func index(of objectWithUniqueIdentifier: Swift.String) -> Swift.Int?
+}
+public protocol BSDataProviderPlainIndexableWithDelegate : BSComponents.BSDataProviderPlainIndexable {
+  var delegate: BSComponents.BSDataProviderDelegate? { get set }
+}
+extension Array : BSComponents.BSDataProviderPlainIndexable where Element : BSComponents.StringIdentifiable {
+  public func index(of objectWithUniqueIdentifier: Swift.String) -> Swift.Int?
+}
+public protocol BSDataProviderSectioned {
+  var sectionsCount: Swift.Int { get }
+  func elementsCount(in section: Swift.Int) -> Swift.Int
+  func sectionModel(section: Swift.Int) -> Any?
+  func elementModel(at indexPath: Foundation.IndexPath) -> Any?
+}
+public protocol BSDataProviderSectionedWithDelegate : BSComponents.BSDataProviderSectioned {
+  var delegate: BSComponents.BSDataProviderDelegate? { get set }
+}
+public protocol BSDataProviderDelegate : AnyObject {
+  func dataProviderChangedData()
+}
+public protocol BSDataProviderSectionedExtendedDelegate : BSComponents.BSDataProviderDelegate {
+  @discardableResult
+  func dataProviderBeginsBatchUpdate() -> Swift.Bool
+  func dataProviderEndsBatchUpdate()
+  func dataProviderChangedSection(section: Swift.Int)
+  func dataProviderRemovedSection(section: Swift.Int)
+  func dataProviderInsertedSection(section: Swift.Int)
+  func dataProviderMovedSection(from: Swift.Int, to: Swift.Int)
+  func dataProviderChangedRow(at: Foundation.IndexPath)
+  func dataProviderInsertedRow(at: Foundation.IndexPath)
+  func dataProviderRemovedRow(at: Foundation.IndexPath)
+  func dataProviderMovedRow(from: Foundation.IndexPath, to: Foundation.IndexPath)
+}
+open class BSDataProviderSectionedFromPlainProviders : BSComponents.BSDataProviderSectionedWithDelegate {
+  weak open var delegate: BSComponents.BSDataProviderDelegate?
+  open var sections: Swift.AnyCollection<Any?> {
+    get
+    set
+  }
+  open var itemsPerSection: Swift.AnyCollection<BSComponents.BSDataProviderPlain> {
+    get
+    set
+  }
+  public init(sections: Swift.AnyCollection<Any?>, itemsPerSection: Swift.AnyCollection<BSComponents.BSDataProviderPlain>)
+  open var sectionsCount: Swift.Int {
+    get
+  }
+  open func elementsCount(in section: Swift.Int) -> Swift.Int
+  open func sectionModel(section: Swift.Int) -> Any?
+  open func elementModel(at indexPath: Foundation.IndexPath) -> Any?
+  @objc deinit
+}
+open class BSDataProviderSectionedNSFetchedWrapper<EntityType> : ObjectiveC.NSObject, BSComponents.BSDataProviderSectionedWithDelegate, CoreData.NSFetchedResultsControllerDelegate where EntityType : CoreData.NSFetchRequestResult {
+  weak public var delegate: BSComponents.BSDataProviderDelegate?
+  public init(controller: CoreData.NSFetchedResultsController<EntityType>? = nil)
+  open var fetchController: CoreData.NSFetchedResultsController<EntityType>? {
+    get
+    set
+  }
+  open var sectionsCount: Swift.Int {
+    get
+  }
+  open func sectionModel(section: Swift.Int) -> Any?
+  open func elementsCount(in section: Swift.Int) -> Swift.Int
+  open func elementModel(at indexPath: Foundation.IndexPath) -> Any?
+  @objc public func controllerWillChangeContent(_ controller: CoreData.NSFetchedResultsController<CoreData.NSFetchRequestResult>)
+  @objc public func controller(_ controller: CoreData.NSFetchedResultsController<CoreData.NSFetchRequestResult>, didChange sectionInfo: CoreData.NSFetchedResultsSectionInfo, atSectionIndex sectionIndex: Swift.Int, for type: CoreData.NSFetchedResultsChangeType)
+  @objc public func controller(_ controller: CoreData.NSFetchedResultsController<CoreData.NSFetchRequestResult>, didChange anObject: Any, at indexPath: Foundation.IndexPath?, for type: CoreData.NSFetchedResultsChangeType, newIndexPath: Foundation.IndexPath?)
+  @objc public func controllerDidChangeContent(_ controller: CoreData.NSFetchedResultsController<CoreData.NSFetchRequestResult>)
+  @objc override dynamic public init()
+  @objc deinit
+}
+public protocol BSTableViewCellConfigurationInterface : AnyObject {
+  var cellDelegate: BSComponents.BSTableViewCellConfigurationDelegate? { get set }
+  var cellResizeDelegate: BSComponents.BSTableViewCellSizeChangeDelegate? { get set }
+  func dequeueTableViewCellUnified(from tableView: UIKit.UITableView, for indexPath: Foundation.IndexPath) -> UIKit.UITableViewCell
+  func configureCellUnified(cell: UIKit.UITableViewCell, context: Any?)
+}
+public protocol BSTableViewCellConfiguration : BSComponents.BSTableViewCellConfigurationInterface {
+  associatedtype CellClass : UIKit.UITableViewCell
+  var cellReference: Self.CellClass? { get set }
+  func configureCell(cell: Self.CellClass, context: Any?)
+}
+extension BSTableViewCellConfiguration {
+  public func dequeueTableViewCellUnified(from tableView: UIKit.UITableView, for indexPath: Foundation.IndexPath) -> UIKit.UITableViewCell
+  public func configureCellUnified(cell: UIKit.UITableViewCell, context: Any?)
+}
+public protocol BSTableViewCellConfigurationDelegate : AnyObject {
+}
+public protocol BSTableViewCellSizeChangeDelegate : AnyObject {
+  func tableContentHeightDidChange()
+}
+public protocol BSTableViewCellConfigurationMovable : BSComponents.BSTableViewCellConfigurationInterface {
+  var canMoveCell: Swift.Bool { get }
+}
+public protocol BSTableViewCellConfigurationEditable : BSComponents.BSTableViewCellConfigurationInterface {
+  var canEditCellWithActions: Swift.Bool { get }
+  var editActions: [UIKit.UITableViewRowAction]? { get }
+  var editingStyle: UIKit.UITableViewCell.EditingStyle { get }
+}
+@available(iOS 13.0, *)
+public protocol BSTableViewCellConfigurationForceTouchable : BSComponents.BSTableViewCellConfigurationInterface {
+  func contextMenuConfiguration(atPoint: CoreGraphics.CGPoint) -> UIKit.UIContextMenuConfiguration?
+}
+public protocol BSTableViewDataSourceDelegate : BSComponents.BSTableViewCellConfigurationDelegate {
+  func didSelect(dataSource: BSComponents.BSTableViewDataSource, model: BSComponents.BSTableViewCellConfigurationInterface, in section: BSComponents.BSTableViewSectionConfigurationInterface?, atIndexPath indexPath: Foundation.IndexPath)
+  func dataSourceRequstsToUpdateTable(dataSource: BSComponents.BSTableViewDataSource)
+}
+public protocol BSTableViewDataSourceDelegateMovable : BSComponents.BSTableViewDataSourceDelegate {
+  func cellIsMoved(configuration: BSComponents.BSTableViewCellConfigurationMovable, from: Foundation.IndexPath, to: Foundation.IndexPath)
+  func desiredIndexPathToMoveTo(configuration: BSComponents.BSTableViewCellConfigurationMovable, from: Foundation.IndexPath, toUserChosenIndexPath: Foundation.IndexPath) -> Foundation.IndexPath
+}
+@available(iOS 13.0, *)
+public protocol BSTableViewDataSourceDelegateForceTouchable : BSComponents.BSTableViewDataSourceDelegate {
+  func willPerformForceTouchActionWith(forceTouchConfiguration: UIKit.UIContextMenuConfiguration, animator: UIKit.UIContextMenuInteractionCommitAnimating)
+}
+@objc @_inheritsConvenienceInitializers open class BSTableViewDataSource : ObjectiveC.NSObject, UIKit.UITableViewDelegate, UIKit.UITableViewDataSource, BSComponents.BSDataProviderDelegate, BSComponents.BSTableViewCellSizeChangeDelegate {
+  weak open var delegate: BSComponents.BSTableViewDataSourceDelegate?
+  open var dataProvider: BSComponents.BSDataProviderSectioned?
+  weak open var mTableViewRef: UIKit.UITableView?
+  @objc override required dynamic public init()
+  public func setData(array provider: [BSComponents.BSTableViewCellConfigurationInterface]?)
+  open func setData(data provider: BSComponents.BSDataProviderSectionedWithDelegate?)
+  open func setData(data provider: BSComponents.BSDataProviderSectioned?)
+  @objc open func numberOfSections(in tableView: UIKit.UITableView) -> Swift.Int
+  @objc open func tableView(_ tableView: UIKit.UITableView, numberOfRowsInSection section: Swift.Int) -> Swift.Int
+  @objc open func tableView(_ tableView: UIKit.UITableView, cellForRowAt indexPath: Foundation.IndexPath) -> UIKit.UITableViewCell
+  @objc open func tableView(_ tableView: UIKit.UITableView, didSelectRowAt indexPath: Foundation.IndexPath)
+  @objc open func tableView(_ tableView: UIKit.UITableView, willDisplay cell: UIKit.UITableViewCell, forRowAt indexPath: Foundation.IndexPath)
+  @objc open func tableView(_ tableView: UIKit.UITableView, didEndDisplaying cell: UIKit.UITableViewCell, forRowAt indexPath: Foundation.IndexPath)
+  @objc open func tableView(_ tableView: UIKit.UITableView, viewForHeaderInSection section: Swift.Int) -> UIKit.UIView?
+  @objc open func tableView(_ tableView: UIKit.UITableView, viewForFooterInSection section: Swift.Int) -> UIKit.UIView?
+  @objc open func tableView(_ tableView: UIKit.UITableView, heightForHeaderInSection section: Swift.Int) -> CoreGraphics.CGFloat
+  @objc open func tableView(_ tableView: UIKit.UITableView, heightForFooterInSection section: Swift.Int) -> CoreGraphics.CGFloat
+  open var isReloadingTable: Swift.Bool
+  open func dataProviderChangedData()
+  public func tableContentHeightDidChange()
+  @objc open func tableView(_ tableView: UIKit.UITableView, canMoveRowAt indexPath: Foundation.IndexPath) -> Swift.Bool
+  @objc open func tableView(_ tableView: UIKit.UITableView, moveRowAt sourceIndexPath: Foundation.IndexPath, to destinationIndexPath: Foundation.IndexPath)
+  @objc open func tableView(_ tableView: UIKit.UITableView, targetIndexPathForMoveFromRowAt sourceIndexPath: Foundation.IndexPath, toProposedIndexPath proposedDestinationIndexPath: Foundation.IndexPath) -> Foundation.IndexPath
+  @objc open func tableView(_ tableView: UIKit.UITableView, canEditRowAt indexPath: Foundation.IndexPath) -> Swift.Bool
+  @objc open func tableView(_ tableView: UIKit.UITableView, editActionsForRowAt indexPath: Foundation.IndexPath) -> [UIKit.UITableViewRowAction]?
+  @objc open func tableView(_ tableView: UIKit.UITableView, editingStyleForRowAt indexPath: Foundation.IndexPath) -> UIKit.UITableViewCell.EditingStyle
+  @available(iOS 13.0, *)
+  @objc open func tableView(_ tableView: UIKit.UITableView, contextMenuConfigurationForRowAt indexPath: Foundation.IndexPath, point: CoreGraphics.CGPoint) -> UIKit.UIContextMenuConfiguration?
+  @available(iOS 13.0, *)
+  @objc open func tableView(_ tableView: UIKit.UITableView, willPerformPreviewActionForMenuWith configuration: UIKit.UIContextMenuConfiguration, animator: UIKit.UIContextMenuInteractionCommitAnimating)
+  @objc open func scrollViewDidScroll(_ scrollView: UIKit.UIScrollView)
+  @objc open func scrollViewWillBeginDragging(_ scrollView: UIKit.UIScrollView)
+  @objc open func scrollViewWillEndDragging(_ scrollView: UIKit.UIScrollView, withVelocity velocity: CoreGraphics.CGPoint, targetContentOffset: Swift.UnsafeMutablePointer<CoreGraphics.CGPoint>)
+  @objc open func scrollViewDidEndDragging(_ scrollView: UIKit.UIScrollView, willDecelerate decelerate: Swift.Bool)
+  @objc open func scrollViewWillBeginDecelerating(_ scrollView: UIKit.UIScrollView)
+  @objc open func scrollViewDidEndDecelerating(_ scrollView: UIKit.UIScrollView)
+  @objc open func scrollViewDidEndScrollingAnimation(_ scrollView: UIKit.UIScrollView)
+  @objc open func scrollViewDidScrollToTop(_ scrollView: UIKit.UIScrollView)
+  @objc open func scrollViewDidChangeAdjustedContentInset(_ scrollView: UIKit.UIScrollView)
+  @objc deinit
+}
+public struct BSTableViewCellConfigurationUserInfoKey {
+  public static var isFirstElementInSection: Swift.String {
+    get
+  }
+  public static var isLastElementInSection: Swift.String {
+    get
+  }
+  public static var isInFirstSection: Swift.String {
+    get
+  }
+  public static var isInLastSection: Swift.String {
+    get
+  }
+  public static var isHeaderEnbledForThisSection: Swift.String {
+    get
+  }
+  public static var isFooterEnbledForThisSection: Swift.String {
+    get
+  }
+  public static var isNextSectionHeaderEnabled: Swift.String {
+    get
+  }
+  public static var isNextSectionFooterEnabled: Swift.String {
+    get
+  }
+  public static var isPrevSectionHeaderEnabled: Swift.String {
+    get
+  }
+  public static var isPrevSectionFooterEnabled: Swift.String {
+    get
+  }
+}
+@objc @_inheritsConvenienceInitializers open class BSTableViewDataSourceExtended : BSComponents.BSTableViewDataSource, BSComponents.BSDataProviderSectionedExtendedDelegate {
+  open var useFadeAnimation: Swift.Bool
+  open var shouldReloadWithAnimationAlways: Swift.Bool
+  open var animationType: UIKit.UITableView.RowAnimation {
+    get
+  }
+  @objc override open func numberOfSections(in tableView: UIKit.UITableView) -> Swift.Int
+  open func dataProviderBeginsBatchUpdate() -> Swift.Bool
+  override public func tableContentHeightDidChange()
+  open func dataProviderChangedSection(section: Swift.Int)
+  open func dataProviderRemovedSection(section: Swift.Int)
+  open func dataProviderInsertedSection(section: Swift.Int)
+  open func dataProviderMovedSection(from: Swift.Int, to: Swift.Int)
+  open func dataProviderChangedRow(at: Foundation.IndexPath)
+  open func dataProviderInsertedRow(at: Foundation.IndexPath)
+  open func dataProviderRemovedRow(at: Foundation.IndexPath)
+  open func dataProviderMovedRow(from: Foundation.IndexPath, to: Foundation.IndexPath)
+  open func dataProviderEndsBatchUpdate()
+  override open func dataProviderChangedData()
+  open func reloadTable()
+  @objc required dynamic public init()
+  @objc deinit
+}
+extension UITableView {
+  public static var associatedKey: Foundation.NSString
+  public var setOfRegisteredClasses: Foundation.NSMutableSet {
+    get
+  }
+  public func dequeueReusableCell<T>(withClass mClass: T.Type, for indexPath: Foundation.IndexPath) -> T where T : UIKit.UITableViewCell
+  public func dequeueReusableHeaderFooterView(withClass mClass: Swift.AnyClass) -> UIKit.UITableViewHeaderFooterView?
+}
+public protocol BSTableViewSectionConfigurationInterface : AnyObject {
+  var sectionDelegate: BSComponents.BSTableViewCellConfigurationDelegate? { get set }
+  var sectionResizeDelegate: BSComponents.BSTableViewCellSizeChangeDelegate? { get set }
+  var showsHeader: Swift.Bool { get }
+  func dequeueHeaderUnified(from tableView: UIKit.UITableView, for index: Swift.Int) -> UIKit.UITableViewHeaderFooterView?
+  func configureHeaderUnified(header: UIKit.UITableViewHeaderFooterView, context: Any?)
+  var showsFooter: Swift.Bool { get }
+  func dequeueFooterUnified(from tableView: UIKit.UITableView, for index: Swift.Int) -> UIKit.UITableViewHeaderFooterView?
+  func configureFooterUnified(footer: UIKit.UITableViewHeaderFooterView, context: Any?)
+}
+public protocol BSTableViewSectionConfiguration : BSComponents.BSTableViewSectionConfigurationInterface {
+  associatedtype HeaderViewClass : UIKit.UITableViewHeaderFooterView
+  associatedtype FooterViewClass : UIKit.UITableViewHeaderFooterView
+  var headerReference: Self.HeaderViewClass? { get set }
+  var footerReference: Self.FooterViewClass? { get set }
+  func configureHeader(header view: Self.HeaderViewClass, context: Any?)
+  func configureFooter(footer view: Self.FooterViewClass, context: Any?)
+}
+extension BSTableViewSectionConfiguration {
+  public func dequeueHeaderUnified(from tableView: UIKit.UITableView, for index: Swift.Int) -> UIKit.UITableViewHeaderFooterView?
+  public func dequeueFooterUnified(from tableView: UIKit.UITableView, for index: Swift.Int) -> UIKit.UITableViewHeaderFooterView?
+  public func configureHeaderUnified(header: UIKit.UITableViewHeaderFooterView, context: Any?)
+  public func configureFooterUnified(footer: UIKit.UITableViewHeaderFooterView, context: Any?)
+}
+public protocol BSViewConfigurationInterface : AnyObject {
+  var viewIdentifier: Swift.String { get }
+  var viewClass: UIKit.UIView.Type { get }
+  func fabricateViewUnified() -> UIKit.UIView
+  func configureViewUnified(view: UIKit.UIView, context: Any?)
+}
+public protocol BSViewConfiguration : BSComponents.BSViewConfigurationInterface {
+  associatedtype ViewClass : UIKit.UIView
+  var viewReference: Self.ViewClass? { get set }
+  func fabricateView() -> Self.ViewClass
+  func configureView(view: Self.ViewClass, context: Any?)
+}
+extension BSViewConfiguration {
+  public func fabricateView() -> Self.ViewClass
+  public func fabricateConfiguredView() -> Self.ViewClass
+  public func configureView(view: Self.ViewClass)
+  public var viewReferenceUnified: UIKit.UIView? {
+    get
+  }
+  public func fabricateViewUnified() -> UIKit.UIView
+  public func configureViewUnified(view: UIKit.UIView, context: Any?)
+  public func configureViewUnified(view: UIKit.UIView)
+  public var viewIdentifier: Swift.String {
+    get
+  }
+  public var viewClass: UIKit.UIView.Type {
+    get
+  }
+}
