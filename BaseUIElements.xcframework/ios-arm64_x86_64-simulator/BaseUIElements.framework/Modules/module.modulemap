@@ -1,0 +1,11 @@
+framework module BaseUIElements {
+  umbrella header "BaseUIElements-umbrella.h"
+
+  export *
+  module * { export * }
+}
+
+module BaseUIElements.Swift {
+    header "BaseUIElements-Swift.h"
+    requires objc
+}
