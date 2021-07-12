@@ -31,6 +31,7 @@ TODO: Add long description of the pod here.
   s.ios.deployment_target = '12.0'
   s.swift_version = '5.0'
   s.vendored_frameworks = "BSComponents.xcframework"
+  s.frameworks = 'UIKit'
   s.platform = :ios
   
   # s.resource_bundles = {

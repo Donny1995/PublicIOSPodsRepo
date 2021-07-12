@@ -282,6 +282,7 @@ SWIFT_CLASS("_TtC12BSComponents22BSPickerViewDataSource")
 @class UITableViewCell;
 @class UITableViewRowAction;
 
+/// Объект, реализующий логику работы  с таблицами. Принимает на вход <code>BSDataProviderSectioned</code>, элементами которго должны являться  объекты наследники протокола<code>BSTableViewCellConfigurationInterface</code>.
 SWIFT_CLASS("_TtC12BSComponents21BSTableViewDataSource")
 @interface BSTableViewDataSource : NSObject <UITableViewDataSource, UITableViewDelegate>
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
@@ -637,6 +638,7 @@ SWIFT_CLASS("_TtC12BSComponents22BSPickerViewDataSource")
 @class UITableViewCell;
 @class UITableViewRowAction;
 
+/// Объект, реализующий логику работы  с таблицами. Принимает на вход <code>BSDataProviderSectioned</code>, элементами которго должны являться  объекты наследники протокола<code>BSTableViewCellConfigurationInterface</code>.
 SWIFT_CLASS("_TtC12BSComponents21BSTableViewDataSource")
 @interface BSTableViewDataSource : NSObject <UITableViewDataSource, UITableViewDelegate>
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;

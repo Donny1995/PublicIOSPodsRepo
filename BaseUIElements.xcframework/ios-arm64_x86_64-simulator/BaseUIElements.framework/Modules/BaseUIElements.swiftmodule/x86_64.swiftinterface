@@ -1,0 +1,1072 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 5.4.2 (swiftlang-1205.0.28.2 clang-1205.0.19.57)
+// swift-module-flags: -target x86_64-apple-ios11.0-simulator -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name BaseUIElements
+@_exported import BaseUIElements
+import Foundation
+import ObjectiveC
+import QuartzCore
+import Swift
+import UIKit
+import WebKit
+@available(iOS 13.0, *)
+public protocol IdentifiedUIContextMenuInteractionCatcherDelegate : AnyObject {
+  func providePreviewInteraction(forID id: Swift.String) -> UIKit.UIViewController?
+  func performCommitInteraction(forID id: Swift.String)
+  func provideActions(forID id: Swift.String, elements: [UIKit.UIMenuElement]) -> UIKit.UIMenu?
+}
+@objc @_inheritsConvenienceInitializers @available(iOS 13.0, *)
+open class UIContextMenuInteractionHandlerIdentifiedBase : ObjectiveC.NSObject, UIKit.UIContextMenuInteractionDelegate {
+  @objc public func contextMenuInteraction(_ interaction: UIKit.UIContextMenuInteraction, configurationForMenuAtLocation location: CoreGraphics.CGPoint) -> UIKit.UIContextMenuConfiguration?
+  @objc public func contextMenuInteraction(_ interaction: UIKit.UIContextMenuInteraction, willPerformPreviewActionForMenuWith configuration: UIKit.UIContextMenuConfiguration, animator: UIKit.UIContextMenuInteractionCommitAnimating)
+  open func providePreviewInteraction(forID id: Swift.String) -> UIKit.UIViewController?
+  open func performCommitInteraction(forID id: Swift.String)
+  open func provideActions(forID id: Swift.String, elements: [UIKit.UIMenuElement]) -> UIKit.UIMenu?
+  @objc override dynamic public init()
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers @available(iOS 13.0, *)
+public class UIContextMenuInteractionHandlerIdentifiedWithDelegate : BaseUIElements.UIContextMenuInteractionHandlerIdentifiedBase {
+  weak public var delegate: BaseUIElements.IdentifiedUIContextMenuInteractionCatcherDelegate?
+  override public func providePreviewInteraction(forID id: Swift.String) -> UIKit.UIViewController?
+  override public func performCommitInteraction(forID id: Swift.String)
+  override public func provideActions(forID id: Swift.String, elements: [UIKit.UIMenuElement]) -> UIKit.UIMenu?
+  @objc override dynamic public init()
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers @available(iOS 13.0, *)
+public class xUIContextMenuInteractionHandlerIdentifiedWithBlocks : BaseUIElements.UIContextMenuInteractionHandlerIdentifiedBase {
+  override public func providePreviewInteraction(forID id: Swift.String) -> UIKit.UIViewController?
+  override public func performCommitInteraction(forID id: Swift.String)
+  override public func provideActions(forID id: Swift.String, elements: [UIKit.UIMenuElement]) -> UIKit.UIMenu?
+  public var onPreview: ((Swift.String) -> UIKit.UIViewController?)?
+  public var onCommit: ((Swift.String) -> Swift.Void)?
+  public var actionsFactoryBlock: ((Swift.String, [UIKit.UIMenuElement]) -> UIKit.UIMenu?)?
+  @objc override dynamic public init()
+  @objc deinit
+}
+@available(iOS 13.0, *)
+extension UIContextMenuConfiguration {
+  public static func construct(interaction: BaseUIElements.UIContextMenuInteractionIdentified, previewProvider: @escaping (Swift.String) -> UIKit.UIViewController?, actions: @escaping (Swift.String, [UIKit.UIMenuElement]) -> UIKit.UIMenu?) -> UIKit.UIContextMenuConfiguration
+}
+@objc @available(iOS 13.0, *)
+public class UIContextMenuInteractionIdentified : UIKit.UIContextMenuInteraction {
+  final public let identifier: Swift.String
+  public init(identifier: Swift.String, delegate: UIKit.UIContextMenuInteractionDelegate)
+  public func provideRealIdentifier() -> Swift.String
+  @objc override dynamic public init(delegate: UIKit.UIContextMenuInteractionDelegate)
+  @objc deinit
+}
+public protocol UIActivityIndicatable {
+  func setLoadOperationStarted(animated: Swift.Bool, withCompletion: (() -> Swift.Void)?)
+  func setLoadOperationFinished(animated: Swift.Bool, withCompletion: (() -> Swift.Void)?)
+}
+extension UIActivityIndicatable {
+  public func setLoadOperation(active: Swift.Bool, animated: Swift.Bool, withCompletion: (() -> Swift.Void)? = nil)
+}
+@_inheritsConvenienceInitializers open class ActivityIndicatorContainer<T> : UIKit.UIView, BaseUIElements.UIActivityIndicatable where T : UIKit.UIView {
+  open var mViewContent: T
+  @objc override dynamic public init(frame: CoreGraphics.CGRect)
+  @objc required dynamic public init?(coder: Foundation.NSCoder)
+  open var mActivityIndicatorView: UIKit.UIActivityIndicatorView {
+    get
+    set
+  }
+  open func setLoadOperationStarted(animated: Swift.Bool, withCompletion: (() -> Swift.Void)? = nil)
+  open func setLoadOperationFinished(animated: Swift.Bool, withCompletion: (() -> Swift.Void)? = nil)
+  @objc deinit
+}
+public enum GradientDirection : Swift.Int {
+  case leftToRight
+  case rightToLeft
+  case bottomToTop
+  case topToBottom
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@objc @_inheritsConvenienceInitializers public class AlphaGradientView : UIKit.UIView {
+  public var gradientPercent: CoreGraphics.CGFloat? {
+    get
+    set
+  }
+  public var direction: BaseUIElements.GradientDirection {
+    get
+    set
+  }
+  public var color: UIKit.UIColor {
+    get
+    set
+  }
+  public var gradient: QuartzCore.CAGradientLayer?
+  public var overlay: UIKit.UIView
+  convenience public init(direction: BaseUIElements.GradientDirection, color: UIKit.UIColor)
+  @objc override dynamic public init(frame: CoreGraphics.CGRect)
+  @objc required dynamic public init?(coder aDecoder: Foundation.NSCoder)
+  @objc override dynamic public func layoutSubviews()
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers open class AutoHeightTableView : UIKit.UITableView {
+  @objc override dynamic public init(frame: CoreGraphics.CGRect, style: UIKit.UITableView.Style)
+  public var isScrollDisabledWhenHeightIsSufficient: Swift.Bool
+  @objc required dynamic public init?(coder: Foundation.NSCoder)
+  public var maxHeight: CoreGraphics.CGFloat {
+    get
+    set
+  }
+  @objc override dynamic open func reloadData()
+  @objc override dynamic open func endUpdates()
+  @objc override dynamic open func performBatchUpdates(_ updates: (() -> Swift.Void)?, completion: ((Swift.Bool) -> Swift.Void)? = nil)
+  @objc override dynamic open var intrinsicContentSize: CoreGraphics.CGSize {
+    @objc get
+  }
+  @objc deinit
+}
+public enum ImageAutosizeType {
+  case no
+  case width
+  case height
+  public static func == (a: BaseUIElements.ImageAutosizeType, b: BaseUIElements.ImageAutosizeType) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+@objc @_inheritsConvenienceInitializers public class AutosizedUIImageView : UIKit.UIImageView {
+  public var autosizeType: BaseUIElements.ImageAutosizeType {
+    get
+    set
+  }
+  @objc override dynamic public var image: UIKit.UIImage? {
+    @objc get
+    @objc set
+  }
+  @objc override dynamic public init(image: UIKit.UIImage?)
+  @available(iOS 3.0, *)
+  @objc override dynamic public init(image: UIKit.UIImage?, highlightedImage: UIKit.UIImage?)
+  @objc override dynamic public init(frame: CoreGraphics.CGRect)
+  @objc required dynamic public init?(coder: Foundation.NSCoder)
+  @objc deinit
+}
+@_inheritsConvenienceInitializers open class BaseCollectionViewCell<T> : UIKit.UICollectionViewCell where T : UIKit.UIView {
+  @objc override dynamic public init(frame: CoreGraphics.CGRect)
+  open var mViewContent: T {
+    get
+    set
+  }
+  @objc required dynamic public init?(coder: Foundation.NSCoder)
+  @objc override dynamic open func preferredLayoutAttributesFitting(_ layoutAttributes: UIKit.UICollectionViewLayoutAttributes) -> UIKit.UICollectionViewLayoutAttributes
+  @objc deinit
+}
+@_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers public class BaseCollectionReusableView<T> : UIKit.UICollectionReusableView where T : UIKit.UIView {
+  final public let mViewContent: T
+  @objc override dynamic public init(frame: CoreGraphics.CGRect)
+  @objc deinit
+}
+@_inheritsConvenienceInitializers open class BaseTableViewCell<T> : UIKit.UITableViewCell where T : UIKit.UIView {
+  public var mViewContent: T {
+    get
+    set
+  }
+  @objc override dynamic public init(style: UIKit.UITableViewCell.CellStyle, reuseIdentifier: Swift.String?)
+  @objc required dynamic public init?(coder aDecoder: Foundation.NSCoder)
+  @objc deinit
+}
+@_inheritsConvenienceInitializers public class BaseTableViewHeaderHeaderFooterView<ContainedType> : UIKit.UITableViewHeaderFooterView where ContainedType : UIKit.UIView {
+  public var mViewContent: ContainedType {
+    get
+    set
+  }
+  public var backView: UIKit.UIView {
+    get
+    set
+  }
+  @objc override dynamic public var backgroundColor: UIKit.UIColor? {
+    @objc get
+    @objc set
+  }
+  @objc override dynamic public init(reuseIdentifier: Swift.String?)
+  @objc required dynamic public init?(coder: Foundation.NSCoder)
+  @objc deinit
+}
+@_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers public class ButtonContainer<T> : UIKit.UIButton where T : UIKit.UIView {
+  public var mViewContent: T {
+    get
+    set
+  }
+  @objc override dynamic public init(frame: CoreGraphics.CGRect)
+  @objc override dynamic public func hitTest(_ point: CoreGraphics.CGPoint, with event: UIKit.UIEvent?) -> UIKit.UIView?
+  @objc deinit
+}
+public enum TextVerticalCenteringBegaviour : Swift.Int {
+  case system
+  case realCentering
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@objc @_inheritsConvenienceInitializers public class ButtonWithRightImage : UIKit.UIButton {
+  public var imageSpace: CoreGraphics.CGFloat {
+    get
+    set
+  }
+  @objc override dynamic public func setTitle(_ title: Swift.String?, for state: UIKit.UIControl.State)
+  @objc override dynamic public func imageRect(forContentRect contentRect: CoreGraphics.CGRect) -> CoreGraphics.CGRect
+  @objc override dynamic public func titleRect(forContentRect contentRect: CoreGraphics.CGRect) -> CoreGraphics.CGRect
+  @objc override dynamic public var intrinsicContentSize: CoreGraphics.CGSize {
+    @objc get
+  }
+  @objc override dynamic public func layoutSubviews()
+  @objc override dynamic public init(frame: CoreGraphics.CGRect)
+  @objc required dynamic public init?(coder: Foundation.NSCoder)
+  @objc deinit
+}
+extension CALayer {
+  public func disableAnimation(forDuration duration: Foundation.TimeInterval = 1.0)
+  public static func performWithoutAnimation(_ block: () -> Swift.Void)
+  public func fadeTransitionAnimation(duration: Foundation.TimeInterval, block: (() -> Swift.Void)? = nil)
+}
+@_inheritsConvenienceInitializers open class CenteringViewContainer<T> : UIKit.UIView where T : UIKit.UIView {
+  open var isLeftFixed: Swift.Bool {
+    get
+    set
+  }
+  open var mViewContent: T
+  @objc override dynamic public init(frame: CoreGraphics.CGRect)
+  @objc required dynamic public init?(coder aDecoder: Foundation.NSCoder)
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers public class CentralButtonView : UIKit.UIView {
+  public var contentInsets: UIKit.UIEdgeInsets {
+    get
+    set
+  }
+  public var mButton: UIKit.UIButton {
+    get
+    set
+  }
+  @objc override dynamic public init(frame: CoreGraphics.CGRect)
+  @objc required dynamic public init?(coder: Foundation.NSCoder)
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers open class DrawerViewManager : ObjectiveC.NSObject, UIKit.UIScrollViewDelegate {
+  open var dismissTolreance: CoreGraphics.CGFloat
+  open var mViewUnderlay: UIKit.UIView {
+    get
+    set
+  }
+  open var mViewDrawer: UIKit.UIView {
+    get
+    set
+  }
+  open var mScrollView: UIKit.UIScrollView {
+    get
+    set
+  }
+  open func showDynamicDrawerView(over view: UIKit.UIView, inset: UIKit.UIEdgeInsets = .zero, animated: Swift.Bool = false, addContent: ((UIKit.UIView) -> Swift.Void)? = nil)
+  open func dismissAnimatedDrawerView(animated: Swift.Bool)
+  @objc open func scrollViewDidScroll(_ scrollView: UIKit.UIScrollView)
+  @objc open func scrollViewWillBeginDecelerating(_ scrollView: UIKit.UIScrollView)
+  @objc open func scrollViewDidEndDragging(_ scrollView: UIKit.UIScrollView, willDecelerate decelerate: Swift.Bool)
+  @objc open func scrollViewDidEndDecelerating(_ scrollView: UIKit.UIScrollView)
+  @objc override dynamic public init()
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers open class DynamicDequeueContainer : UIKit.UIView {
+  open func dequeueContentView<ViewType>(viewType: ViewType.Type) -> ViewType where ViewType : UIKit.UIView
+  public func removeContentView()
+  @objc override dynamic public init(frame: CoreGraphics.CGRect)
+  @objc required dynamic public init?(coder: Foundation.NSCoder)
+  @objc deinit
+}
+public protocol UIGestureRecognizerClosureActionable : UIKit.UIGestureRecognizer {
+}
+extension UIGestureRecognizerClosureActionable {
+  public func setBlock(_ block: @escaping ((Self) -> Swift.Void))
+}
+extension UIGestureRecognizer : BaseUIElements.UIGestureRecognizerClosureActionable {
+}
+extension UIGestureRecognizer {
+  public static var recognizerBlockAssociatedKey: Swift.String
+  @objc dynamic public func handleGestureAction(sender: UIKit.UIGestureRecognizer)
+}
+@objc @_inheritsConvenienceInitializers open class GradientView : UIKit.UIView {
+  final public let mGradientLayer: QuartzCore.CAGradientLayer
+  @objc override dynamic public init(frame: CoreGraphics.CGRect)
+  @objc required dynamic public init?(coder: Foundation.NSCoder)
+  open func configure(startPoint: CoreGraphics.CGPoint, endPoint: CoreGraphics.CGPoint, keyPoints: [(fraction: CoreGraphics.CGFloat, color: UIKit.UIColor)])
+  public func configureHorizontal(fromLeft: UIKit.UIColor, toRight: UIKit.UIColor)
+  public func configureVertical(fromTop: UIKit.UIColor, toBottom: UIKit.UIColor)
+  @objc override dynamic open func layoutSubviews()
+  @objc deinit
+}
+@_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers public class HorizontalCenteringViewContainer<ViewType> : UIKit.UIView where ViewType : UIKit.UIView {
+  final public let mViewContent: ViewType
+  @objc override dynamic public init(frame: CoreGraphics.CGRect)
+  @objc deinit
+}
+public protocol HorizontalSelectorElementViewProtocol : UIKit.UIView {
+  var contentAligmenntView: UIKit.UIView { get }
+}
+@objc @_inheritsConvenienceInitializers public class HorizontalSelectorScrollView : BaseUIElements.LinedView {
+  public var mScrollView: UIKit.UIScrollView {
+    get
+    set
+  }
+  public var mArrayOfViews: [BaseUIElements.HorizontalSelectorElementViewProtocol] {
+    get
+    set
+  }
+  public var mViewSelector: UIKit.UIView {
+    get
+    set
+  }
+  public var selectedIndex: Swift.Int {
+    get
+  }
+  public func setSelected(index: Swift.Int, animated: Swift.Bool = false)
+  @objc dynamic open var mColorSelector: UIKit.UIColor {
+    @objc get
+    @objc set
+  }
+  open var shoudScrollToSelectedItems: Swift.Bool
+  public func scrollToItem(atIndex index: Swift.Int, animated: Swift.Bool = true)
+  @objc override dynamic public init(frame: CoreGraphics.CGRect)
+  @objc required dynamic public init?(coder aDecoder: Foundation.NSCoder)
+  @objc deinit
+}
+extension HorizontalSelectorScrollView : BaseUIElements.PagingableViewProtocol {
+  @objc dynamic public func setClass(_ elementClass: UIKit.UIView.Type, forConfigureElement block: @escaping (Swift.Int, UIKit.UIView) -> Swift.Void)
+  @objc dynamic public func view(atIndex index: Swift.Int) -> UIKit.UIView?
+  @objc dynamic public func reloadElements()
+  @objc dynamic public var selectedIndexOffsetChangeBlock: ((CoreGraphics.CGFloat, Swift.Bool) -> Swift.Void)? {
+    @objc get
+    @objc set
+  }
+  @objc dynamic public var selectedIndexChangeBlock: ((Swift.Int, Swift.Bool) -> Swift.Void)? {
+    @objc get
+    @objc set
+  }
+  @objc dynamic public var transitionEndBlock: ((Swift.Bool) -> Swift.Void)? {
+    @objc get
+    @objc set
+  }
+  @objc dynamic public var transitionStartBlock: ((Swift.Bool) -> Swift.Void)? {
+    @objc get
+    @objc set
+  }
+  @objc dynamic public var mSelectedIndex: Swift.Int {
+    @objc get
+  }
+  @objc dynamic public func setSelectionIndex(index: Swift.Int)
+  @objc dynamic public var mNumberOfPages: Swift.Int {
+    @objc get
+    @objc set
+  }
+}
+@objc public protocol HorizontalSelectorViewDelegate : ObjectiveC.NSObjectProtocol {
+  @objc func horizontalSelectorView(isNavigationToIndexPossible index: Swift.Int) -> Swift.Bool
+  @objc func horizontalSelectorView(configure view: UIKit.UIView, for index: Swift.Int)
+  @objc optional func horizontalSelectorView(willTransitionToIndex index: Swift.Int)
+  @objc optional func horizontalSelectorView(didTransitionToIndex index: Swift.Int)
+}
+@_inheritsConvenienceInitializers public class HorizontalSelectorView<ContainingType> : UIKit.UIView where ContainingType : UIKit.UIView {
+  public var startIndex: Swift.Int
+  weak public var delegate: BaseUIElements.HorizontalSelectorViewDelegate? {
+    get
+    set
+  }
+  public var currentIndex: Swift.Int {
+    get
+  }
+  @objc override dynamic public var backgroundColor: UIKit.UIColor? {
+    @objc get
+    @objc set
+  }
+  public var mViewGradients: UIKit.UIView {
+    get
+    set
+  }
+  public var mViewGradientRight: BaseUIElements.AlphaGradientView {
+    get
+    set
+  }
+  public var mViewGradientLeft: BaseUIElements.AlphaGradientView {
+    get
+    set
+  }
+  public var mButtonLeft: UIKit.UIButton {
+    get
+    set
+  }
+  public var mButtonRight: UIKit.UIButton {
+    get
+    set
+  }
+  public var mViewContent: ContainingType? {
+    get
+    set
+  }
+  @objc override dynamic public init(frame: CoreGraphics.CGRect)
+  @objc required dynamic public init?(coder: Foundation.NSCoder)
+  @objc deinit
+}
+extension HorizontalSelectorView {
+  public func setIndex(index: Swift.Int)
+}
+@objc @_inheritsConvenienceInitializers public class ImageViewActivityIndicated : UIKit.UIImageView, BaseUIElements.UIActivityIndicatable {
+  public var isActivityIndicatorAnimationEnabled: Swift.Bool
+  public var mActivityIndicatorView: UIKit.UIActivityIndicatorView {
+    get
+    set
+  }
+  @objc override dynamic public func addSubview(_ view: UIKit.UIView)
+  public func setLoadOperationStarted(animated: Swift.Bool, withCompletion: (() -> Swift.Void)?)
+  public func setLoadOperationFinished(animated: Swift.Bool, withCompletion: (() -> Swift.Void)?)
+  @objc override dynamic public init(image: UIKit.UIImage?)
+  @available(iOS 3.0, *)
+  @objc override dynamic public init(image: UIKit.UIImage?, highlightedImage: UIKit.UIImage?)
+  @objc override dynamic public init(frame: CoreGraphics.CGRect)
+  @objc required dynamic public init?(coder: Foundation.NSCoder)
+  @objc deinit
+}
+@_inheritsConvenienceInitializers open class LeftAlignedGridView<T> : UIKit.UIView where T : UIKit.UIView {
+  public var items: [T] {
+    get
+  }
+  @objc override dynamic public init(frame: CoreGraphics.CGRect)
+  @objc required dynamic public init?(coder: Foundation.NSCoder)
+  open func setLayoutParams(count: Swift.Int, spacing: CoreGraphics.CGFloat, maxWidth: CoreGraphics.CGFloat, desiredWidthForItem: (Swift.Int) -> CoreGraphics.CGFloat, desiredHeightForItem: (CoreGraphics.CGFloat, Swift.Int) -> CoreGraphics.CGFloat)
+  @objc deinit
+}
+public protocol LeftAlignedGridViewM2DataSource : AnyObject {
+  func leftAlignedGridView(numberOfElementsIn view: BaseUIElements.LeftAlignedGridViewM2) -> Swift.Int
+  func leftAlignedGridView(_ view: BaseUIElements.LeftAlignedGridViewM2, elementFor index: Swift.Int) -> UIKit.UIView
+  func leftAlignedGridView(_ view: BaseUIElements.LeftAlignedGridViewM2, widthForElementAt index: Swift.Int) -> CoreGraphics.CGFloat
+  func leftAlignedGridView(_ view: BaseUIElements.LeftAlignedGridViewM2, heightForElementAt index: Swift.Int, withWidth: CoreGraphics.CGFloat) -> CoreGraphics.CGFloat
+}
+@objc @_inheritsConvenienceInitializers open class LeftAlignedGridViewM2 : UIKit.UIView {
+  @objc override dynamic public init(frame: CoreGraphics.CGRect)
+  @objc required dynamic public init?(coder: Foundation.NSCoder)
+  weak open var dataSource: BaseUIElements.LeftAlignedGridViewM2DataSource?
+  open var managedViews: [UIKit.UIView] {
+    get
+  }
+  open var interItemSpacing: CoreGraphics.CGFloat {
+    get
+    set
+  }
+  open var interLineSpacing: CoreGraphics.CGFloat {
+    get
+    set
+  }
+  open var contentHeight: CoreGraphics.CGFloat {
+    get
+  }
+  @objc override dynamic open func layoutSubviews()
+  @discardableResult
+  open func reloadData() -> Swift.Bool
+  @discardableResult
+  open func poseViews() -> Swift.Bool
+  @objc override dynamic open var intrinsicContentSize: CoreGraphics.CGSize {
+    @objc get
+  }
+  @objc deinit
+}
+@_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers public class LeftIconViewContainer<T> : UIKit.UIView where T : UIKit.UIView {
+  final public let mImageView: UIKit.UIImageView
+  final public let mViewContent: T
+  public var spacing: CoreGraphics.CGFloat {
+    get
+    set
+  }
+  @objc override dynamic public init(frame: CoreGraphics.CGRect)
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers open class LinedView : UIKit.UIView {
+  public var leftOffset: CoreGraphics.CGFloat {
+    get
+    set
+  }
+  public var rightOffset: CoreGraphics.CGFloat {
+    get
+    set
+  }
+  @objc dynamic public var lineColor: UIKit.UIColor {
+    @objc get
+    @objc set
+  }
+  public var lineType: BaseUIElements.LineType {
+    get
+    set
+  }
+  public var lineHeight: CoreGraphics.CGFloat {
+    get
+    set
+  }
+  @objc override dynamic public init(frame: CoreGraphics.CGRect)
+  @objc required dynamic public init?(coder aDecoder: Foundation.NSCoder)
+  @objc deinit
+}
+@_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers public class LinedViewContainer<T> : UIKit.UIView where T : UIKit.UIView {
+  @objc dynamic public var lineColor: UIKit.UIColor {
+    @objc get
+    @objc set
+  }
+  public var lineType: BaseUIElements.LineType {
+    get
+    set
+  }
+  public var lineHeight: CoreGraphics.CGFloat {
+    get
+    set
+  }
+  final public let mViewContent: T
+  final public let mLinedView: BaseUIElements.LinedView
+  @objc override dynamic public init(frame: CoreGraphics.CGRect)
+  @objc deinit
+}
+public struct LineType : Swift.OptionSet {
+  public let rawValue: Swift.Int
+  public init(rawValue: Swift.Int)
+  public static let topLine: BaseUIElements.LineType
+  public static let topLineWithOffset: BaseUIElements.LineType
+  public static let bottomLine: BaseUIElements.LineType
+  public static let bottomLineWithOffset: BaseUIElements.LineType
+  public static let all: BaseUIElements.LineType
+  public static let allWithOffset: BaseUIElements.LineType
+  public typealias ArrayLiteralElement = BaseUIElements.LineType
+  public typealias Element = BaseUIElements.LineType
+  public typealias RawValue = Swift.Int
+}
+@objc public protocol PagerEvadeAnimationProtocol : ObjectiveC.NSObjectProtocol {
+  @objc func setEvadingAnimationState(state: CoreGraphics.CGFloat)
+  @objc var isCuttingFromLeft: Swift.Bool { get set }
+  @objc var parallaxStep: CoreGraphics.CGFloat { get set }
+  @objc optional func setSubEvadingAnimationState(state: CoreGraphics.CGFloat)
+  @objc optional var viewForDismissialTransform: UIKit.UIView { get }
+}
+@_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers public class MaskPagingView<T> : UIKit.UIView, BaseUIElements.PagingableViewProtocol where T : UIKit.UIView, T : BaseUIElements.PagerEvadeAnimationProtocol {
+  @objc public func setClass(_ elementClass: UIKit.UIView.Type, forConfigureElement block: @escaping (Swift.Int, UIKit.UIView) -> Swift.Void)
+  @objc public func reloadElements()
+  @objc public var selectedIndexOffsetChangeBlock: ((CoreGraphics.CGFloat, Swift.Bool) -> Swift.Void)?
+  @objc public var transitionEndBlock: ((Swift.Bool) -> Swift.Void)?
+  @objc public var transitionStartBlock: ((Swift.Bool) -> Swift.Void)?
+  @objc public func view(atIndex index: Swift.Int) -> UIKit.UIView?
+  @objc public var mNumberOfPages: Swift.Int {
+    @objc get
+    @objc set
+  }
+  @objc public var mSelectedIndex: Swift.Int {
+    @objc get
+    @objc set
+  }
+  @objc public func setSelectionIndex(index: Swift.Int)
+  public var configurationBlock: ((Swift.Int, T) -> Swift.Void)? {
+    get
+    set
+  }
+  @objc public var selectedIndexChangeBlock: ((Swift.Int, Swift.Bool) -> Swift.Void)?
+  public var isInteractiveDismissEnabled: Swift.Bool
+  public var interactiveDismissBlock: (() -> Swift.Void)?
+  public var mViewNow: T {
+    get
+  }
+  public var frameOfCurrentlySelectedElement: CoreGraphics.CGRect {
+    get
+  }
+  @objc override dynamic public init(frame: CoreGraphics.CGRect)
+  @objc override dynamic public func layoutSubviews()
+  @objc public func pan(sender: UIKit.UIPanGestureRecognizer)
+  @objc public func verticalPan(sender: UIKit.UIPanGestureRecognizer)
+  @objc public func horizontalPan(sender: UIKit.UIPanGestureRecognizer)
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers public class MaskPathAnimator {
+  public static func animate(fromView view: UIKit.UIView, toView: UIKit.UIView?, duration: Foundation.TimeInterval, fromPath: CoreGraphics.CGPath, toPath: CoreGraphics.CGPath, changeBlock: (UIKit.UIView) -> Swift.Void, configurePlacholder: ((UIKit.UIView) -> Swift.Void)?, isBlockBefore: Swift.Bool, finalize: ((UIKit.UIView) -> Swift.Void)?, completion: (() -> Swift.Void)? = nil)
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers public class MaskCirclePathAnimator {
+  public static func animateCircleIn(onView view: UIKit.UIView, toView: UIKit.UIView?, duration: Foundation.TimeInterval, center: CoreGraphics.CGPoint?, configurePlacholder: ((UIKit.UIView) -> Swift.Void)?, changeBlock: (UIKit.UIView) -> Swift.Void, completion: (() -> Swift.Void)? = nil)
+  public static func animateCircleOut(onView view: UIKit.UIView, toView: UIKit.UIView, duration: Foundation.TimeInterval, center: CoreGraphics.CGPoint? = nil, configurePlacholder: ((UIKit.UIView) -> Swift.Void)?, changeBlock: @escaping (UIKit.UIView) -> Swift.Void, completion: (() -> Swift.Void)? = nil)
+  @objc deinit
+}
+@_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers public class MessageContainer<T> : UIKit.UIView where T : UIKit.UIView {
+  public var messageIsAboveContent: Swift.Bool {
+    get
+    set
+  }
+  public var itemOffset: CoreGraphics.CGFloat {
+    get
+    set
+  }
+  final public let mViewContent: T
+  final public let mLabelMessage: UIKit.UILabel
+  @discardableResult
+  public func setMessage(message: Swift.String?, animated: Swift.Bool) -> Swift.Bool
+  @objc deinit
+}
+extension NSLayoutConstraint {
+  @discardableResult
+  public func lpaa() -> UIKit.NSLayoutConstraint
+  @discardableResult
+  public func activate() -> UIKit.NSLayoutConstraint
+  public func deactivate()
+  public func runWithHighPriority()
+  public func runWithLowPrority()
+  public func runWith(priority: CoreGraphics.CGFloat)
+}
+@_inheritsConvenienceInitializers open class OffsetsContainerView<T> : UIKit.UIView where T : UIKit.UIView {
+  public var contentInsets: UIKit.UIEdgeInsets {
+    get
+    set
+  }
+  public var shouldReleaseRight: Swift.Bool {
+    get
+    set
+  }
+  final public let mViewContent: T
+  @objc override dynamic public init(frame: CoreGraphics.CGRect)
+  @objc required dynamic public init?(coder: Foundation.NSCoder)
+  @objc deinit
+}
+@_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers public class OptionalLeftViewContainer<LeftViewType, RightViewType> : UIKit.UIView where LeftViewType : UIKit.UIView, RightViewType : UIKit.UIView {
+  final public let mViewContentRight: RightViewType
+  public var mSpacingConstraint: UIKit.NSLayoutConstraint?
+  public var spacing: CoreGraphics.CGFloat {
+    get
+    set
+  }
+  public var mViewContentLeft: LeftViewType {
+    get
+    set
+  }
+  public var didCreateLeftView: Swift.Bool {
+    get
+  }
+  public var shouldDisplayLeftView: Swift.Bool {
+    get
+    set
+  }
+  public var leftViewAlignment: BaseUIElements.OptionalLeftViewContainer<LeftViewType, RightViewType>.LeftViewAlignment {
+    get
+    set
+  }
+  public enum LeftViewAlignment : Swift.Equatable {
+    case center(takeHeightIntoAccount: Swift.Bool)
+    case top(takeHeightIntoAccount: Swift.Bool)
+    public static func == (a: BaseUIElements.OptionalLeftViewContainer<LeftViewType, RightViewType>.LeftViewAlignment, b: BaseUIElements.OptionalLeftViewContainer<LeftViewType, RightViewType>.LeftViewAlignment) -> Swift.Bool
+  }
+  @objc override dynamic public init(frame: CoreGraphics.CGRect)
+  @objc deinit
+}
+@_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers public class OverlayAccessoryContainerView<ContentViewType, AccessoryViewType> : UIKit.UIView where ContentViewType : UIKit.UIView, AccessoryViewType : UIKit.UIView {
+  final public let mViewContent: ContentViewType
+  final public let mViewAccessory: AccessoryViewType
+  @objc override dynamic public init(frame: CoreGraphics.CGRect)
+  @objc deinit
+}
+@objc public protocol PagingableViewProtocol : ObjectiveC.NSObjectProtocol {
+  @objc func setClass(_ elementClass: UIKit.UIView.Type, forConfigureElement block: @escaping (Swift.Int, UIKit.UIView) -> Swift.Void)
+  @objc func view(atIndex index: Swift.Int) -> UIKit.UIView?
+  @objc func reloadElements()
+  @objc var selectedIndexOffsetChangeBlock: ((CoreGraphics.CGFloat, Swift.Bool) -> Swift.Void)? { get set }
+  @objc var selectedIndexChangeBlock: ((Swift.Int, Swift.Bool) -> Swift.Void)? { get set }
+  @objc var transitionEndBlock: ((Swift.Bool) -> Swift.Void)? { get set }
+  @objc var transitionStartBlock: ((Swift.Bool) -> Swift.Void)? { get set }
+  @objc var mSelectedIndex: Swift.Int { get }
+  @objc func setSelectionIndex(index: Swift.Int)
+  @objc var mNumberOfPages: Swift.Int { get set }
+}
+extension PagingableViewProtocol {
+  public func isEqual(_ object: Any?) -> Swift.Bool
+}
+@objc @_inheritsConvenienceInitializers public class PagingView : BaseUIElements.LinedView, UIKit.UIScrollViewDelegate, BaseUIElements.PagingableViewProtocol {
+  public var mPagePositionInsets: UIKit.UIEdgeInsets {
+    get
+    set
+  }
+  public var mSelectedIndexOffset: CoreGraphics.CGFloat {
+    get
+    set
+  }
+  @objc public var selectedIndexOffsetChangeBlock: ((CoreGraphics.CGFloat, Swift.Bool) -> Swift.Void)?
+  @objc public var selectedIndexChangeBlock: ((Swift.Int, Swift.Bool) -> Swift.Void)?
+  @objc public var mSelectedIndex: Swift.Int {
+    @objc get
+    @objc set
+  }
+  public var mInsetsBetweenPages: CoreGraphics.CGFloat
+  @objc public var mNumberOfPages: Swift.Int {
+    @objc get
+    @objc set
+  }
+  @objc public var transitionEndBlock: ((Swift.Bool) -> Swift.Void)?
+  @objc public var transitionStartBlock: ((Swift.Bool) -> Swift.Void)?
+  public var mViewContent: UIKit.UIView {
+    get
+    set
+  }
+  @objc public func reloadElements()
+  @objc public func view(atIndex index: Swift.Int) -> UIKit.UIView?
+  @objc override dynamic public func layoutSubviews()
+  @objc public func setClass(_ elementClass: UIKit.UIView.Type, forConfigureElement block: @escaping (Swift.Int, UIKit.UIView) -> Swift.Void)
+  @objc public func setSelectionIndex(index: Swift.Int)
+  @objc public func scrollViewDidScroll(_ scrollView: UIKit.UIScrollView)
+  @objc public func scrollViewWillBeginDragging(_ scrollView: UIKit.UIScrollView)
+  @objc public func scrollViewDidEndDragging(_ scrollView: UIKit.UIScrollView, willDecelerate decelerate: Swift.Bool)
+  @objc public func scrollViewDidEndDecelerating(_ scrollView: UIKit.UIScrollView)
+  @objc override dynamic public init(frame: CoreGraphics.CGRect)
+  @objc required dynamic public init?(coder aDecoder: Foundation.NSCoder)
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers public class PickerButton : UIKit.UIButton {
+  @objc override dynamic public var inputView: UIKit.UIView {
+    @objc get
+    @objc set
+  }
+  @objc override dynamic public var inputAccessoryView: UIKit.UIView {
+    @objc get
+    @objc set
+  }
+  @objc override dynamic public var canBecomeFirstResponder: Swift.Bool {
+    @objc get
+  }
+  @objc public func doneTapped()
+  @objc public func cancelTapped()
+  @objc override dynamic public init(frame: CoreGraphics.CGRect)
+  @objc required dynamic public init?(coder: Foundation.NSCoder)
+  @objc deinit
+}
+@_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers public class PistonView<TopViewType, BottomViewType> : UIKit.UIView where TopViewType : UIKit.UIView, BottomViewType : UIKit.UIView {
+  public var isOpen: Swift.Bool {
+    get
+    set
+  }
+  public var mViewTop: TopViewType {
+    get
+    set
+  }
+  public var mViewBottom: BottomViewType {
+    get
+    set
+  }
+  @objc override dynamic public init(frame: CoreGraphics.CGRect)
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers public class RotatingImageView : UIKit.UIImageView {
+  public enum ArrowDirection : Swift.Int {
+    case identity
+    case verticalMirrored
+    public init?(rawValue: Swift.Int)
+    public typealias RawValue = Swift.Int
+    public var rawValue: Swift.Int {
+      get
+    }
+  }
+  public func set(direction: BaseUIElements.RotatingImageView.ArrowDirection, animated: Swift.Bool? = nil)
+  @objc override dynamic public init(image: UIKit.UIImage?)
+  @available(iOS 3.0, *)
+  @objc override dynamic public init(image: UIKit.UIImage?, highlightedImage: UIKit.UIImage?)
+  @objc override dynamic public init(frame: CoreGraphics.CGRect)
+  @objc required dynamic public init?(coder: Foundation.NSCoder)
+  @objc deinit
+}
+@_inheritsConvenienceInitializers open class RoundCornersContainerView<T> : UIKit.UIView where T : UIKit.UIView {
+  open var cornerRadius: CoreGraphics.CGFloat? {
+    get
+    set
+  }
+  open var maskedCorners: QuartzCore.CACornerMask {
+    get
+    set
+  }
+  open var cornerMask: QuartzCore.CACornerMask {
+    get
+    set
+  }
+  open var mViewContent: T
+  @objc override dynamic public init(frame: CoreGraphics.CGRect)
+  @objc required dynamic public init?(coder aDecoder: Foundation.NSCoder)
+  @objc override dynamic open func layoutSubviews()
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers public class ScrollViewsSynchronizer {
+  public static func scrollViewWillBeginDragging(_ scrollView: UIKit.UIScrollView)
+  public static func scrollViewDidScroll(_ scrollView: UIKit.UIScrollView)
+  public static func scrollViewDidEndDragging(_ scrollView: UIKit.UIScrollView, willDecelerate: Swift.Bool)
+  public static func scrollViewDidEndDecelerating(_ scrollView: UIKit.UIScrollView)
+  @objc deinit
+}
+@_inheritsConvenienceInitializers open class ShadowViewContainer<T> : UIKit.UIView where T : UIKit.UIView {
+  open var mViewContent: T
+  @objc override dynamic public init(frame: CoreGraphics.CGRect)
+  @objc required dynamic public init?(coder: Foundation.NSCoder)
+  open func setShadow(style: BaseUIElements.ShadowStyle)
+  open func setShadow(style: UIKit.NSShadow)
+  open func removeShadow()
+  @objc deinit
+}
+public struct ShadowStyle {
+  public var color: UIKit.UIColor
+  public var offset: CoreGraphics.CGSize
+  public var opacity: CoreGraphics.CGFloat
+  public var radius: CoreGraphics.CGFloat
+  public var path: CoreGraphics.CGPath?
+  public init(color: UIKit.UIColor, offset: CoreGraphics.CGSize, opacity: CoreGraphics.CGFloat, radius: CoreGraphics.CGFloat, path: CoreGraphics.CGPath? = nil)
+  public func configure(view: UIKit.UIView)
+}
+@_inheritsConvenienceInitializers public class StackViewWithReuse<ItemType> : UIKit.UIStackView where ItemType : UIKit.UIView {
+  public var mElementsArray: [ItemType] {
+    get
+  }
+  public func adjustNumberOfElementsForReuse(number: Swift.Int)
+  @objc override dynamic public init(frame: CoreGraphics.CGRect)
+  @objc required dynamic public init(coder: Foundation.NSCoder)
+  @objc deinit
+}
+@objc public class SVGImageView : UIKit.UIView {
+  @objc dynamic public init()
+  @objc required dynamic public init?(coder aDecoder: Foundation.NSCoder)
+  @objc deinit
+  public func load(urlString: Swift.String)
+  public func cancelCurrentImageLoadOperation()
+  @objc override dynamic public func layoutSubviews()
+  @objc override dynamic public init(frame: CoreGraphics.CGRect)
+}
+extension SVGImageView : WebKit.WKNavigationDelegate {
+  @objc dynamic public func webView(_ webView: WebKit.WKWebView, decidePolicyFor navigationAction: WebKit.WKNavigationAction, decisionHandler: @escaping (WebKit.WKNavigationActionPolicy) -> Swift.Void)
+  @objc dynamic public func webView(_ webView: WebKit.WKWebView, didFinish navigation: WebKit.WKNavigation!)
+}
+public enum TapticType : Swift.Int {
+  case push
+  case pop
+  case success
+  case warning
+  case failure
+  case select
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@_hasMissingDesignatedInitializers public class Taptic {
+  public static func object(_ object: Swift.AnyObject, willRequestTapticWith type: BaseUIElements.TapticType)
+  public static func object(object: Swift.AnyObject, requestTapticWith type: BaseUIElements.TapticType)
+  public static func object(object: Swift.AnyObject, didRequestTapticWith type: BaseUIElements.TapticType)
+  public static func object(object: Swift.AnyObject, requestImmediateTapticWith type: BaseUIElements.TapticType)
+  @objc deinit
+}
+@_inheritsConvenienceInitializers public class TwoVerticalViewsContainer<View1Type, View2Type> : UIKit.UIView where View1Type : UIKit.UIView, View2Type : UIKit.UIView {
+  public var mStackView: UIKit.UIStackView {
+    get
+    set
+  }
+  public var mViewContentTop: View1Type {
+    get
+    set
+  }
+  public var mViewContentBottom: View2Type {
+    get
+    set
+  }
+  @objc override dynamic public init(frame: CoreGraphics.CGRect)
+  @objc required dynamic public init?(coder: Foundation.NSCoder)
+  @objc deinit
+}
+@_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers public class TwoVerticalViewsContainerM2<View1Type, View2Type> : UIKit.UIView where View1Type : UIKit.UIView, View2Type : UIKit.UIView {
+  final public let mViewContentTop: View1Type
+  final public let mViewContentBottom: View2Type
+  @objc override dynamic public init(frame: CoreGraphics.CGRect)
+  public var spacing: CoreGraphics.CGFloat {
+    get
+    set
+  }
+  public enum ViewAlignment {
+    case leading, trailing, center, fill
+    public static func == (a: BaseUIElements.TwoVerticalViewsContainerM2<View1Type, View2Type>.ViewAlignment, b: BaseUIElements.TwoVerticalViewsContainerM2<View1Type, View2Type>.ViewAlignment) -> Swift.Bool
+    public func hash(into hasher: inout Swift.Hasher)
+    public var hashValue: Swift.Int {
+      get
+    }
+  }
+  public var topViewAlignment: BaseUIElements.TwoVerticalViewsContainerM2<View1Type, View2Type>.ViewAlignment {
+    get
+    set
+  }
+  public var bottomViewAlignment: BaseUIElements.TwoVerticalViewsContainerM2<View1Type, View2Type>.ViewAlignment {
+    get
+    set
+  }
+  @objc override dynamic public func updateConstraints()
+  @objc deinit
+}
+@_inheritsConvenienceInitializers public class TwoHorizontalViewsContainer<View1Type, View2Type> : UIKit.UIView where View1Type : UIKit.UIView, View2Type : UIKit.UIView {
+  public var mStackView: UIKit.UIStackView {
+    get
+    set
+  }
+  public var mViewContentLeft: View1Type {
+    get
+    set
+  }
+  public var mViewContentRight: View2Type {
+    get
+    set
+  }
+  @objc override dynamic public init(frame: CoreGraphics.CGRect)
+  @objc required dynamic public init?(coder: Foundation.NSCoder)
+  @objc deinit
+}
+@_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers public class TwoHorizontalViewsContainerM2<LItem, RItem> : UIKit.UIView where LItem : UIKit.UIView, RItem : UIKit.UIView {
+  public var spacing: CoreGraphics.CGFloat {
+    get
+    set
+  }
+  public var spreadToEdges: Swift.Bool {
+    get
+    set
+  }
+  public var equalWidth: Swift.Bool {
+    get
+    set
+  }
+  final public let mViewLeft: LItem
+  final public let mViewRight: RItem
+  @objc deinit
+}
+extension UICollectionView {
+  public static var associatedKey: Foundation.NSString
+  public func dequeueReusableCell(withClass mClass: Swift.AnyClass, for indexPath: Foundation.IndexPath) -> UIKit.UICollectionViewCell
+  public func dequeueReusableSupplementaryView(withClass mClass: Swift.AnyClass, ofKind kind: Swift.String, for indexPath: Foundation.IndexPath) -> UIKit.UICollectionReusableView?
+}
+@_hasMissingDesignatedInitializers public class ActionBlockWrapper<T> : ObjectiveC.NSObject where T : UIKit.UIControl {
+  @objc override dynamic public init()
+  @objc deinit
+}
+public protocol UIControlClosureActionable : UIKit.UIControl {
+}
+extension UIControlClosureActionable {
+  public func setBlock(block: @escaping (Self) -> Swift.Void, forEvent event: UIKit.UIControl.Event)
+  public func removeBlock(forEvent event: UIKit.UIControl.Event)
+}
+extension UIControl : BaseUIElements.UIControlClosureActionable {
+}
+public protocol UIImageViewAnimatorProtocol : AnyObject {
+  func animationStarted()
+  func animationFinished()
+  func animationParticallyCompleted(part: Swift.Int)
+  func animationRemoved()
+}
+extension UIImageViewAnimatorProtocol {
+  public func animationStarted()
+  public func animationFinished()
+  public func animationParticallyCompleted(part: Swift.Int)
+  public func animationRemoved()
+}
+@objc @_inheritsConvenienceInitializers public class RawImageAnimator : UIKit.UIImageView {
+  @_hasMissingDesignatedInitializers public class AnimatorCache {
+    public func releaseCache()
+    @objc deinit
+  }
+  public enum State {
+    case none
+    case started
+    case finished
+    case particallyCompleted(part: Swift.Int)
+    case removed
+  }
+  public var animatorComplitionBlock: ((BaseUIElements.RawImageAnimator.State) -> ())?
+  public var animatorState: BaseUIElements.RawImageAnimator.State
+  weak public var animatorDelegate: BaseUIElements.UIImageViewAnimatorProtocol?
+  weak public var currentDisplayCache: BaseUIElements.RawImageAnimator.AnimatorCache?
+  public var link: QuartzCore.CADisplayLink {
+    get
+    set
+  }
+  public func preloadAnimatorImages(named: Swift.String, in bundle: Foundation.Bundle = Bundle.main) -> BaseUIElements.RawImageAnimator.AnimatorCache
+  public func preloadAnimatorImages(named: Swift.String, withSuffixesIn range: Swift.Range<Swift.Int>? = nil, in bundle: Foundation.Bundle = Bundle.main) -> BaseUIElements.RawImageAnimator.AnimatorCache
+  public func startAnimatorForImages(named: Swift.String, in bundle: Foundation.Bundle = Bundle.main)
+  public func startAnimatorForCache(cache: BaseUIElements.RawImageAnimator.AnimatorCache?)
+  public func startAnimatorForImages(named: Swift.String, withSuffixesIn range: Swift.Range<Swift.Int>? = nil, in bundle: Foundation.Bundle = Bundle.main)
+  public func startAnimator(with images: [UIKit.UIImage])
+  @objc override dynamic public init(image: UIKit.UIImage?)
+  @available(iOS 3.0, *)
+  @objc override dynamic public init(image: UIKit.UIImage?, highlightedImage: UIKit.UIImage?)
+  @objc override dynamic public init(frame: CoreGraphics.CGRect)
+  @objc required dynamic public init?(coder: Foundation.NSCoder)
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers public class UIScrollViewSynchronizer : ObjectiveC.NSObject {
+  public func sync(scroll: UIKit.UIScrollView)
+  @objc override dynamic public init()
+  @objc deinit
+}
+extension UIScrollViewSynchronizer : UIKit.UIScrollViewDelegate {
+  @objc dynamic public func scrollViewDidScroll(_ scrollView: UIKit.UIScrollView)
+}
+extension UITableView {
+  public static var associatedKey: Foundation.NSString
+  public var setOfRegisteredClasses: Foundation.NSMutableSet {
+    get
+  }
+  public func dequeueReusableCell<T>(withClass mClass: T.Type, for indexPath: Foundation.IndexPath) -> T where T : UIKit.UITableViewCell
+  public func dequeueReusableHeaderFooterView(withClass mClass: Swift.AnyClass) -> UIKit.UITableViewHeaderFooterView?
+}
+extension UIView {
+  public func onTap(_ block: @escaping (UIKit.UITapGestureRecognizer) -> Swift.Void, configurationBlock: ((UIKit.UITapGestureRecognizer) -> Swift.Void)? = nil)
+  public func removeOnTap()
+  public func onPan(_ block: @escaping (UIKit.UIPanGestureRecognizer) -> Swift.Void, configurationBlock: ((UIKit.UIPanGestureRecognizer) -> Swift.Void)? = nil)
+  public func removeOnPan()
+  public func onPinch(_ block: @escaping (UIKit.UIPinchGestureRecognizer) -> Swift.Void, configurationBlock: ((UIKit.UIPinchGestureRecognizer) -> Swift.Void)? = nil)
+  public func removeOnPinch()
+  public func onSwipe(_ block: @escaping (UIKit.UISwipeGestureRecognizer) -> Swift.Void, configurationBlock: ((UIKit.UISwipeGestureRecognizer) -> Swift.Void)? = nil)
+  public func removeOnSwipe()
+  public func onRotate(_ block: @escaping (UIKit.UIRotationGestureRecognizer) -> Swift.Void, configurationBlock: ((UIKit.UIRotationGestureRecognizer) -> Swift.Void)? = nil)
+  public func removeOnRotate()
+  public func onLongPress(_ block: @escaping (UIKit.UILongPressGestureRecognizer) -> Swift.Void, configurationBlock: ((UIKit.UILongPressGestureRecognizer) -> Swift.Void)? = nil)
+  public func removeOnLongPress()
+  public func onScreenEdgePan(_ block: @escaping (UIKit.UIScreenEdgePanGestureRecognizer) -> Swift.Void, configurationBlock: ((UIKit.UIScreenEdgePanGestureRecognizer) -> Swift.Void)? = nil)
+  public func removeOnScreenEdgePan()
+}
+extension UIView {
+  public func layoutNow()
+  public func fadeTransitionAnimation(duration: Foundation.TimeInterval, block: (() -> Swift.Void)? = nil)
+  public func blinkAnimation()
+  public func pinToEdgesLayout(strict: Swift.Bool = false)
+}
+@_inheritsConvenienceInitializers public class ViewControllerContainer<ViewType> : UIKit.UIViewController, UIKit.UIPopoverPresentationControllerDelegate where ViewType : UIKit.UIView {
+  public var overrideContentSize: CoreGraphics.CGSize?
+  public var contentSize: CoreGraphics.CGSize {
+    get
+  }
+  final public let mViewContent: ViewType
+  @objc override dynamic public func loadView()
+  @objc override dynamic public func viewWillAppear(_ animated: Swift.Bool)
+  public func presentAsPopover(fromController vc: UIKit.UIViewController, sourceRect: CoreGraphics.CGRect, contentSize: CoreGraphics.CGSize? = nil)
+  @objc public func popoverPresentationControllerShouldDismissPopover(_ popoverPresentationController: UIKit.UIPopoverPresentationController) -> Swift.Bool
+  @objc public func adaptivePresentationStyle(for controller: UIKit.UIPresentationController) -> UIKit.UIModalPresentationStyle
+  @objc override dynamic public init(nibName nibNameOrNil: Swift.String?, bundle nibBundleOrNil: Foundation.Bundle?)
+  @objc required dynamic public init?(coder: Foundation.NSCoder)
+  @objc deinit
+}
+extension BaseUIElements.GradientDirection : Swift.Equatable {}
+extension BaseUIElements.GradientDirection : Swift.Hashable {}
+extension BaseUIElements.GradientDirection : Swift.RawRepresentable {}
+extension BaseUIElements.ImageAutosizeType : Swift.Equatable {}
+extension BaseUIElements.ImageAutosizeType : Swift.Hashable {}
+extension BaseUIElements.TextVerticalCenteringBegaviour : Swift.Equatable {}
+extension BaseUIElements.TextVerticalCenteringBegaviour : Swift.Hashable {}
+extension BaseUIElements.TextVerticalCenteringBegaviour : Swift.RawRepresentable {}
+extension BaseUIElements.RotatingImageView.ArrowDirection : Swift.Equatable {}
+extension BaseUIElements.RotatingImageView.ArrowDirection : Swift.Hashable {}
+extension BaseUIElements.RotatingImageView.ArrowDirection : Swift.RawRepresentable {}
+extension BaseUIElements.TapticType : Swift.Equatable {}
+extension BaseUIElements.TapticType : Swift.Hashable {}
+extension BaseUIElements.TapticType : Swift.RawRepresentable {}
+extension BaseUIElements.TwoVerticalViewsContainerM2.ViewAlignment : Swift.Equatable {}
+extension BaseUIElements.TwoVerticalViewsContainerM2.ViewAlignment : Swift.Hashable {}

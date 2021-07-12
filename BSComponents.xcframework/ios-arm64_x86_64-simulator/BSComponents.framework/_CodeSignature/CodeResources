@@ -6,7 +6,7 @@
 	<dict>
 		<key>Headers/BSComponents-Swift.h</key>
 		<data>
-		yZrLNTC3MoyHbn+PNyo8zSQ5erg=
+		xTn89+hD0/v2fN/plrHkMojCLxM=
 		</data>
 		<key>Headers/BSComponents-umbrella.h</key>
 		<data>
@@ -18,7 +18,7 @@
 		</data>
 		<key>Modules/BSComponents.swiftmodule/arm64-apple-ios-simulator.swiftdoc</key>
 		<data>
-		mRagUObEn7b5UmQTRxc51u82ii4=
+		rj8FEqvdUKzuT3stkR9Hb22H47s=
 		</data>
 		<key>Modules/BSComponents.swiftmodule/arm64-apple-ios-simulator.swiftinterface</key>
 		<data>
@@ -30,7 +30,7 @@
 		</data>
 		<key>Modules/BSComponents.swiftmodule/arm64.swiftdoc</key>
 		<data>
-		mRagUObEn7b5UmQTRxc51u82ii4=
+		rj8FEqvdUKzuT3stkR9Hb22H47s=
 		</data>
 		<key>Modules/BSComponents.swiftmodule/arm64.swiftinterface</key>
 		<data>
@@ -42,7 +42,7 @@
 		</data>
 		<key>Modules/BSComponents.swiftmodule/x86_64-apple-ios-simulator.swiftdoc</key>
 		<data>
-		7wMiF4jWSNfs1I3vltJRzjaANTE=
+		AVhCyNogfP8YGSUcsksAP5Pqqhs=
 		</data>
 		<key>Modules/BSComponents.swiftmodule/x86_64-apple-ios-simulator.swiftinterface</key>
 		<data>
@@ -54,7 +54,7 @@
 		</data>
 		<key>Modules/BSComponents.swiftmodule/x86_64.swiftdoc</key>
 		<data>
-		7wMiF4jWSNfs1I3vltJRzjaANTE=
+		AVhCyNogfP8YGSUcsksAP5Pqqhs=
 		</data>
 		<key>Modules/BSComponents.swiftmodule/x86_64.swiftinterface</key>
 		<data>
@@ -75,7 +75,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			mKlibraZPBsP0V6/JwRcAh1gafHL3H0hd0kcX9nlcI8=
+			aNitptbOlEzAZTAzL7amjqe6D4+D8zvTuXgK9GGp14M=
 			</data>
 		</dict>
 		<key>Headers/BSComponents-umbrella.h</key>
@@ -89,7 +89,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			bi3cR2RsMwYeRUtKmZMctS2lFGZ75qbMyhUOWIdqRgI=
+			y0N3RiIDo9kg6kCiIHTsBDMwvJJSVAWnz/rqRjrgoGc=
 			</data>
 		</dict>
 		<key>Modules/BSComponents.swiftmodule/arm64-apple-ios-simulator.swiftinterface</key>
@@ -110,7 +110,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			bi3cR2RsMwYeRUtKmZMctS2lFGZ75qbMyhUOWIdqRgI=
+			y0N3RiIDo9kg6kCiIHTsBDMwvJJSVAWnz/rqRjrgoGc=
 			</data>
 		</dict>
 		<key>Modules/BSComponents.swiftmodule/arm64.swiftinterface</key>
@@ -131,7 +131,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			jRjVtiB4S89gXm2NAonBrTK/8EKXQv8aK6gsEvRCYZQ=
+			1/5tGQw6Kkt3b5+Og/dSqBHPC7nv5wp1GBmWmbzHgZ8=
 			</data>
 		</dict>
 		<key>Modules/BSComponents.swiftmodule/x86_64-apple-ios-simulator.swiftinterface</key>
@@ -152,7 +152,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			jRjVtiB4S89gXm2NAonBrTK/8EKXQv8aK6gsEvRCYZQ=
+			1/5tGQw6Kkt3b5+Og/dSqBHPC7nv5wp1GBmWmbzHgZ8=
 			</data>
 		</dict>
 		<key>Modules/BSComponents.swiftmodule/x86_64.swiftinterface</key>
