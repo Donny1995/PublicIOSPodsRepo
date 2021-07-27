@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'BSComponents'
-  s.version          = '0.2.6.2'
+  s.version          = '0.2.6.3'
   s.summary          = 'Data providers for tables collections and etc.'
 
 # This description is used to generate tags and improve search results.
