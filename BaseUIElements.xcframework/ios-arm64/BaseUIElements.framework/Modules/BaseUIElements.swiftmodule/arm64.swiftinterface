@@ -524,6 +524,14 @@ public protocol LeftAlignedGridViewM2DataSource : AnyObject {
     get
     set
   }
+  public var leftOffset: CoreGraphics.CGFloat {
+    get
+    set
+  }
+  public var rightOffset: CoreGraphics.CGFloat {
+    get
+    set
+  }
   final public let mViewContent: T
   final public let mLinedView: BaseUIElements.LinedView
   @objc override dynamic public init(frame: CoreGraphics.CGRect)
