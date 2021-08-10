@@ -621,6 +621,8 @@ extension NSLayoutConstraint {
   @discardableResult
   public func lpaa() -> UIKit.NSLayoutConstraint
   @discardableResult
+  public func name(_ name: Swift.String) -> UIKit.NSLayoutConstraint
+  @discardableResult
   public func activate() -> UIKit.NSLayoutConstraint
   public func deactivate()
   public func runWithHighPriority()
