@@ -234,6 +234,12 @@ extension CALayer {
     get
     set
   }
+  public var mCenterConstraint: UIKit.NSLayoutConstraint? {
+    get
+  }
+  public var mLeftConstraint: UIKit.NSLayoutConstraint? {
+    get
+  }
   open var mViewContent: T
   @objc override dynamic public init(frame: CoreGraphics.CGRect)
   @objc required dynamic public init?(coder aDecoder: Foundation.NSCoder)
@@ -620,6 +626,8 @@ public struct LineType : Swift.OptionSet {
 extension NSLayoutConstraint {
   @discardableResult
   public func lpaa() -> UIKit.NSLayoutConstraint
+  @discardableResult
+  public func name(_ name: Swift.String) -> UIKit.NSLayoutConstraint
   @discardableResult
   public func activate() -> UIKit.NSLayoutConstraint
   public func deactivate()
