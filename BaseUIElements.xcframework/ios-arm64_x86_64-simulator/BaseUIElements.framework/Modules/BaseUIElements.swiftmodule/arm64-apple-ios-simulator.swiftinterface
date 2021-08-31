@@ -159,6 +159,15 @@ public enum ImageAutosizeType {
   @objc override dynamic open func preferredLayoutAttributesFitting(_ layoutAttributes: UIKit.UICollectionViewLayoutAttributes) -> UIKit.UICollectionViewLayoutAttributes
   @objc deinit
 }
+public protocol _UIViewAsUIControl : UIKit.UIView {
+}
+extension _UIViewAsUIControl {
+  public func removeOnButtonStyledTap()
+  public func onButtonStyledTap(onTap: @escaping (Self) -> Swift.Void)
+  public func onButtonStyledTap(onTap: @escaping (Self) -> Swift.Void, onControlStateChange: @escaping ((Self, Swift.Bool) -> Swift.Void))
+}
+extension UIView : BaseUIElements._UIViewAsUIControl {
+}
 @_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers public class BaseCollectionReusableView<T> : UIKit.UICollectionReusableView where T : UIKit.UIView {
   final public let mViewContent: T
   @objc override dynamic public init(frame: CoreGraphics.CGRect)
@@ -543,6 +552,17 @@ public protocol LeftAlignedGridViewM2DataSource : AnyObject {
   @objc override dynamic public init(frame: CoreGraphics.CGRect)
   @objc deinit
 }
+@objc @_inheritsConvenienceInitializers open class UILabelWithOffset : UIKit.UILabel {
+  open var contentInset: UIKit.UIEdgeInsets {
+    get
+    set
+  }
+  @objc override dynamic open func drawText(in rect: CoreGraphics.CGRect)
+  @objc override dynamic open func textRect(forBounds bounds: CoreGraphics.CGRect, limitedToNumberOfLines numberOfLines: Swift.Int) -> CoreGraphics.CGRect
+  @objc override dynamic public init(frame: CoreGraphics.CGRect)
+  @objc required dynamic public init?(coder: Foundation.NSCoder)
+  @objc deinit
+}
 public struct LineType : Swift.OptionSet {
   public let rawValue: Swift.Int
   public init(rawValue: Swift.Int)
@@ -677,6 +697,14 @@ extension NSLayoutConstraint {
     public static func == (a: BaseUIElements.OptionalLeftViewContainer<LeftViewType, RightViewType>.LeftViewAlignment, b: BaseUIElements.OptionalLeftViewContainer<LeftViewType, RightViewType>.LeftViewAlignment) -> Swift.Bool
   }
   @objc override dynamic public init(frame: CoreGraphics.CGRect)
+  @objc deinit
+}
+@_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers open class GradientContainerView<T> : UIKit.UIView where T : UIKit.UIView {
+  open var mViewContent: T
+  @objc required dynamic public init?(coder: Foundation.NSCoder)
+  open func configure(startPoint: CoreGraphics.CGPoint, endPoint: CoreGraphics.CGPoint, keyPoints: [(fraction: CoreGraphics.CGFloat, color: UIKit.UIColor)])
+  public func configureHorizontal(fromLeft: UIKit.UIColor, toRight: UIKit.UIColor)
+  public func configureVertical(fromTop: UIKit.UIColor, toBottom: UIKit.UIColor)
   @objc deinit
 }
 @_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers public class OverlayAccessoryContainerView<ContentViewType, AccessoryViewType> : UIKit.UIView where ContentViewType : UIKit.UIView, AccessoryViewType : UIKit.UIView {

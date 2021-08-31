@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'BaseUIElements'
-  s.version          = '0.1.8.3'
+  s.version          = '0.1.8.5'
   s.summary          = 'Library of commonly used UI Components'
 
 # This description is used to generate tags and improve search results.

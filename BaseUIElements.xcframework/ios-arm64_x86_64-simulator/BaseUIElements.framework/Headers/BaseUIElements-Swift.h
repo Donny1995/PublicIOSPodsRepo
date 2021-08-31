@@ -485,6 +485,15 @@ SWIFT_CLASS("_TtC14BaseUIElements34UIContextMenuInteractionIdentified") SWIFT_AV
 @end
 
 
+SWIFT_CLASS("_TtC14BaseUIElements17UILabelWithOffset")
+@interface UILabelWithOffset : UILabel
+- (void)drawTextInRect:(CGRect)rect;
+- (CGRect)textRectForBounds:(CGRect)bounds limitedToNumberOfLines:(NSInteger)numberOfLines SWIFT_WARN_UNUSED_RESULT;
+- (nonnull instancetype)initWithFrame:(CGRect)frame OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)coder OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
 SWIFT_CLASS("_TtC14BaseUIElements24UIScrollViewSynchronizer")
 @interface UIScrollViewSynchronizer : NSObject
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
@@ -494,6 +503,7 @@ SWIFT_CLASS("_TtC14BaseUIElements24UIScrollViewSynchronizer")
 @interface UIScrollViewSynchronizer (SWIFT_EXTENSION(BaseUIElements)) <UIScrollViewDelegate>
 - (void)scrollViewDidScroll:(UIScrollView * _Nonnull)scrollView;
 @end
+
 
 
 
@@ -996,6 +1006,15 @@ SWIFT_CLASS("_TtC14BaseUIElements34UIContextMenuInteractionIdentified") SWIFT_AV
 @end
 
 
+SWIFT_CLASS("_TtC14BaseUIElements17UILabelWithOffset")
+@interface UILabelWithOffset : UILabel
+- (void)drawTextInRect:(CGRect)rect;
+- (CGRect)textRectForBounds:(CGRect)bounds limitedToNumberOfLines:(NSInteger)numberOfLines SWIFT_WARN_UNUSED_RESULT;
+- (nonnull instancetype)initWithFrame:(CGRect)frame OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)coder OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
 SWIFT_CLASS("_TtC14BaseUIElements24UIScrollViewSynchronizer")
 @interface UIScrollViewSynchronizer : NSObject
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
@@ -1005,6 +1024,7 @@ SWIFT_CLASS("_TtC14BaseUIElements24UIScrollViewSynchronizer")
 @interface UIScrollViewSynchronizer (SWIFT_EXTENSION(BaseUIElements)) <UIScrollViewDelegate>
 - (void)scrollViewDidScroll:(UIScrollView * _Nonnull)scrollView;
 @end
+
 
 
 
